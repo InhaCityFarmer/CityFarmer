@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        tools:targetApi="31">
+        <activity
+            android:name=".view.DetectActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.prevchatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.DaashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.chatbotActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.AddInventoryActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity
+            android:name=".view.InventoryActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.MapActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.chatroomActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.SplashActivity"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.RegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.LoginActivity"
+            android:exported="true" /> <!-- 네이버 지도 사용하기 위한 메타 데이터 삽입 -->
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="@string/Naver_Maps_meta_data_value" />
+    </application>
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+</manifest>

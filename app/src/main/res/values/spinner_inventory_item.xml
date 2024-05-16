@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="inventory_item_array">
+        <item>농작물</item>
+        <item>농기구</item>
+    </string-array>
+</resources>
