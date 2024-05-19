@@ -70,6 +70,8 @@ dependencies {
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.12.0"))
     // 리사이클러 뷰 사용 위함
     implementation ("androidx.recyclerview:recyclerview:1.1.0")
+    // 네이버맵 내 현위치 사용 위함
+    implementation ("com.google.android.gms:play-services-location:20.0.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
