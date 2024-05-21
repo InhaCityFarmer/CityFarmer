@@ -73,8 +73,9 @@ class MainActivity : AppCompatActivity() {
         btnChatting.setOnClickListener {
             // 채팅 버튼 클릭시 전의 채팅목록 불러오기
             val intent = Intent(baseContext, prevchatActivity::class.java)
-            val user = auth.currentUser
-            intent.putExtra("currentUserUid", user!!.uid.toString())
+            val user = auth.uid
+            Log.d("지금 uid",user.toString())
+            intent.putExtra("currentUserUid", user!!.toString())
 
             startActivity(intent)
         }

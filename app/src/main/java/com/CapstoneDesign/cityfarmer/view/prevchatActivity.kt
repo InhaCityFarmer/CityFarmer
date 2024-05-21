@@ -19,12 +19,16 @@ import com.google.firebase.firestore.firestore
 
 class prevchatActivity : AppCompatActivity() {
     private lateinit var currnetUserUid : String
+    private lateinit var currentUserName : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        currnetUserUid = intent.getStringExtra("uid").toString()
+        currnetUserUid = intent.getStringExtra("currentUserUid").toString()
      //   currnetUserUid = "aTQLPHQJmiY6oXzMpCp9OfJhCZr2"
 
-        Log.d("currentUserUid " , currnetUserUid)
+        Log.d("currentUserUid in prevchatActivity " , currnetUserUid)
+        currnetUserUid = "aTQLPHQJmiY6oXzMpCp9OfJhCZr2"
+        Log.d("changed currentUserUid in prevchatActivity " , currnetUserUid)
+
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -40,6 +44,22 @@ class prevchatActivity : AppCompatActivity() {
         val db = Firebase.firestore
         val userCollection = db.collection("User")
         val documentRef = userCollection.document(currnetUserUid)
+
+        documentRef.get()
+            .addOnSuccessListener { documentSnapshot->
+                if(documentSnapshot.exists()){
+                    currentUserName = documentSnapshot.get("name") as String
+                    Log.d("이름 데이터 읽어오기 성공", "$currentUserName")
+
+                }
+                else{
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d("이름 데이터 읽어오기 실패", "$exception")
+
+            }
 
         documentRef
             .get()
@@ -75,6 +95,7 @@ class prevchatActivity : AppCompatActivity() {
                                             val intent = Intent(baseContext, chatroomActivity::class.java)
                                             intent.putExtra("currentUserUid", currnetUserUid)
                                             intent.putExtra("opponentUserUid", userList[position])
+                                            intent.putExtra("currentUserName",currentUserName)
                                             startActivity(intent)
                                         }
 

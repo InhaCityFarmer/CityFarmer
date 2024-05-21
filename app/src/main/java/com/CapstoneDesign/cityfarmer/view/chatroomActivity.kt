@@ -34,26 +34,13 @@ class chatroomActivity : AppCompatActivity() {
 
         //currentUserName = "황윤준"
         //opponentUserUid = "황윤준2"
+        currentUserName = intent.getStringExtra("currentUserName").toString()
         opponentUserUid = intent.getStringExtra("opponentUserUid").toString()
         currentUserUid = intent.getStringExtra("currentUserUid").toString()
       //  Log.d("내 Uid : ",currentUserUid)
       //  Log.d("상대 uid : ",opponentUserUid)
 
 
-
-
-//************************************************************************************
-//************************************************************************************
-        // 나중에 이 부분을 없애면 됨
-       // currentUserUid = "aTQLPHQJmiY6oXzMpCp9OfJhCZr2"
-       // opponentUserUid = "lK3iHTQvn0Q8V2ORakoihWILfQE2"
-//************************************************************************************
-//************************************************************************************
-
-
-
-
-        // 새로운 채팅방 생성할떄를 위한 것
 
         val chatList = mutableListOf<String>()
 
