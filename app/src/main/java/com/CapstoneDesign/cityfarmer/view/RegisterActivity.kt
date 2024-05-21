@@ -88,10 +88,9 @@ class RegisterActivity : AppCompatActivity() {
                             farmName = textFarmName.text.toString(),
                             address = textFarmAddress.text.toString(),
                             sector = textFarmNumber.text.toString(),
-
                             crop = ArrayList<HashMap<String,Array<Double>>>(),
                             inventory = ArrayList<Item>(),
-                            chat = HashMap<String,String>()
+                            prev_chat = HashMap<String,String>()
                             )
                         //db에 유저 객체 저장
                         db.collection("User").document(me.uid).set(user)
@@ -131,8 +130,10 @@ class RegisterActivity : AppCompatActivity() {
                                 else
                                 {
                                     for( document in documents) {//유저가 입력한 farmName의 농장이 있다면 해당 농장에 유저 추가
-                                        val myFarm = document.toObject(Farm::class.java); //DB에 있는 농장 데이터를 Farm 객체 타입으로 받아와서 myFarm에 저장
-                                            myFarm.users.put(me.uid,textFarmNumber.text.toString()); //myFarm의 users에 회원가입한 유저의 UID, 회원가입한 유저의 농지번호로 해쉬맵 형태로 저장
+                                        val myFarm = document.toObject(Farm::class.java);
+                                        //DB에 있는 농장 데이터를 Farm 객체 타입으로 받아와서 myFarm에 저장
+                                            myFarm.users.put(me.uid,textFarmNumber.text.toString());
+                                        //myFarm의 users에 회원가입한 유저의 UID, 회원가입한 유저의 농지번호로 해쉬맵 형태로 저장
                                         db.collection("Farm").document(document.id).set(myFarm)//수정한 농장 객체를 다시 DB에 덮어쓰기로 저장
                                     }
                                 }

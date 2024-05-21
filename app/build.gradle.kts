@@ -72,6 +72,8 @@ dependencies {
     implementation ("androidx.recyclerview:recyclerview:1.1.0")
     // 네이버맵 내 현위치 사용 위함
     implementation ("com.google.android.gms:play-services-location:20.0.0")
+    //바텀 시트 사용하기 위함
+    implementation("com.google.android.material:material:1.12.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

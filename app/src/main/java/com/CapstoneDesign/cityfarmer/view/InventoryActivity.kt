@@ -2,6 +2,7 @@ package com.CapstoneDesign.cityfarmer.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.CapstoneDesign.cityfarmer.R
 import com.CapstoneDesign.cityfarmer.adapter.InventoryRecyclerViewAdapter
 import com.CapstoneDesign.cityfarmer.databinding.ActivityInventoryBinding
-import com.CapstoneDesign.cityfarmer.databinding.ActivityMainBinding
 import com.CapstoneDesign.cityfarmer.`object`.Item
 import com.CapstoneDesign.cityfarmer.`object`.User
 import com.google.firebase.auth.FirebaseAuth
@@ -38,12 +38,13 @@ class InventoryActivity : AppCompatActivity() {
         //데이터 바인딩 하기 위한 설정
         binding = ActivityInventoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        myItem = ArrayList<Item>()
         //파이어베이스 권한 생성 및 받아오기
         auth = Firebase.auth
         //파이어스토어 DB 접근 객체 얻어오기
         db = FirebaseFirestore.getInstance()
         //기본으로는 내 농작물 띄워줌
+        setRecyclerView()
         getMyCrop()
         //인벤토리에 농작물, 농기구 추가하는 버튼
         val btnImageAddInventory = findViewById<ImageView>(R.id.imageViewAddInventory)
@@ -92,6 +93,7 @@ class InventoryActivity : AppCompatActivity() {
                     }
                     setRecyclerView()
                 }
+
         }.start()
     }
 
@@ -120,15 +122,17 @@ class InventoryActivity : AppCompatActivity() {
                     }
                     setRecyclerView()
                 }
+
         }.start()
     }
 
     private fun setRecyclerView(){
         // 리사이클러뷰 설정
         runOnUiThread{
-            adapter = InventoryRecyclerViewAdapter(myItem) // 어댑터 객체 할당
-            binding.recyclerViewInventory.adapter = adapter // 리사이클러뷰 어댑터로 위에 만든 어댑터 올리기
-            binding.recyclerViewInventory.layoutManager = LinearLayoutManager(this) // 레이아웃 매니저 설정
+            this@InventoryActivity.adapter = InventoryRecyclerViewAdapter(myItem) // 어댑터 객체 할당
+            binding.recyclerViewInventory.adapter = this@InventoryActivity.adapter // 리사이클러뷰 어댑터로 위에 만든 어댑터 올리기
+            binding.recyclerViewInventory.layoutManager = LinearLayoutManager(this@InventoryActivity) // 레이아웃 매니저 설정
+            adapter.notifyDataSetChanged()
         }
     }
 }
