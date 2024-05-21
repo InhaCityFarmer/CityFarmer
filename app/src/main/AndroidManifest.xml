@@ -23,19 +23,19 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".view.webViewActivity"
+            android:name=".view.WebViewActivity"
             android:exported="false" />
         <activity
             android:name=".view.DetectActivity"
             android:exported="false" />
         <activity
-            android:name=".view.prevchatActivity"
+            android:name=".view.PrevChatActivity"
             android:exported="false" />
         <activity
             android:name=".view.DaashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".view.chatbotActivity"
+            android:name=".view.ChatBotActivity"
             android:exported="false" />
         <activity
             android:name=".view.AddInventoryActivity"
@@ -48,7 +48,7 @@
             android:name=".view.MapActivity"
             android:exported="true" />
         <activity
-            android:name=".view.chatroomActivity"
+            android:name=".view.ChatoomActivity"
             android:exported="true" />
         <activity
             android:name=".view.SplashActivity"

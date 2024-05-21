@@ -17,7 +17,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.firestore
 
-class prevchatActivity : AppCompatActivity() {
+class PrevChatActivity : AppCompatActivity() {
     private lateinit var currnetUserUid : String
     private lateinit var currentUserName : String
 
@@ -92,7 +92,7 @@ class prevchatActivity : AppCompatActivity() {
                                     rv_adapter.itemclick = object : chatAdapter.Itemclick {
                                         override fun onclick(view: View, position: Int) {
                                             Toast.makeText(baseContext, "Clicked position: $position", Toast.LENGTH_LONG).show()
-                                            val intent = Intent(baseContext, chatroomActivity::class.java)
+                                            val intent = Intent(baseContext, ChatoomActivity::class.java)
                                             intent.putExtra("currentUserUid", currnetUserUid)
                                             intent.putExtra("opponentUserUid", userList[position])
                                             intent.putExtra("currentUserName",currentUserName)

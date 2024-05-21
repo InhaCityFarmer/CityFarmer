@@ -51,7 +51,17 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val btnDB = findViewById<Button>(R.id.btnDashboard)
+        btnDB.setOnClickListener {
+            val intent = Intent(this, DaashboardActivity::class.java)
+            startActivity(intent)
+        }
 
+        val btncctv = findViewById<Button>(R.id.btnCCTV)
+        btncctv.setOnClickListener {
+            val intent = Intent(this, WebViewActivity::class.java)
+            startActivity(intent)
+        }
 
         //임시 로그아웃 버튼 연결
         val btnLogout = findViewById<Button>(R.id.btnLogout)
@@ -64,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
         val btnChatbot = findViewById<Button>(R.id.btnChatbot)
         btnChatbot.setOnClickListener {
-            val intent = Intent(baseContext,chatbotActivity::class.java)
+            val intent = Intent(baseContext,ChatBotActivity::class.java)
             startActivity(intent)
 
         }
@@ -72,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         val btnChatting = findViewById<Button>(R.id.btnChatting)
         btnChatting.setOnClickListener {
             // 채팅 버튼 클릭시 전의 채팅목록 불러오기
-            val intent = Intent(baseContext, prevchatActivity::class.java)
+            val intent = Intent(baseContext, PrevChatActivity::class.java)
             val user = auth.uid
             Log.d("지금 uid",user.toString())
             intent.putExtra("currentUserUid", user!!.toString())

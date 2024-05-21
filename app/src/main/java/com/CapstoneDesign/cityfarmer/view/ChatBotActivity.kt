@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.CapstoneDesign.cityfarmer.R
 import com.CapstoneDesign.cityfarmer.`object`.Message
 import com.CapstoneDesign.cityfarmer.adapter.MessageRecyclerViewAdapter
-import com.google.rpc.context.AttributeContext.Resource
 
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
@@ -26,7 +25,7 @@ import org.json.JSONObject
 import java.io.IOException
 
 
-class chatbotActivity : AppCompatActivity() {
+class ChatBotActivity : AppCompatActivity() {
 
     private lateinit var recycler_view: RecyclerView
     private lateinit var tv_welcome: TextView
