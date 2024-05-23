@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     app:behavior_peekHeight="100dp"
-    app:layout_behavior="com.google.android.material.bottomSheet.BottomSheetBehavior">
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <View
         android:layout_width="30dp"
@@ -23,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:gravity="center"
-        android:text="여러개의 숙소"
+        android:text="시티파머"
         android:textColor="@color/black"
         android:textSize="15sp"
         android:textStyle="bold"
