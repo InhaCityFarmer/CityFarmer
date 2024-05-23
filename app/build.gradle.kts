@@ -74,6 +74,8 @@ dependencies {
     implementation ("com.google.android.gms:play-services-location:20.0.0")
     //바텀 시트 사용하기 위함
     implementation("com.google.android.material:material:1.12.0")
+    //cvs 파일 사용하기 위함
+    implementation ("com.opencsv:opencsv:5.6")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
