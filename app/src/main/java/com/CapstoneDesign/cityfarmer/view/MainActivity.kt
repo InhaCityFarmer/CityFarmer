@@ -90,10 +90,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val btnDashboard = findViewById<Button>(R.id.btnDashboard)
-        btnDashboard.setOnClickListener{
-
-        }
 
     }
 }
