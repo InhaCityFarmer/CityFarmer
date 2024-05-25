@@ -38,6 +38,7 @@ class InventoryActivity : AppCompatActivity() {
         //데이터 바인딩 하기 위한 설정
         binding = ActivityInventoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        //myItem 배열을 사용하기 전 초기화 해주기
         myItem = ArrayList<Item>()
         //파이어베이스 권한 생성 및 받아오기
         auth = Firebase.auth
