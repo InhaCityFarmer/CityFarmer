@@ -6,12 +6,20 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.CapstoneDesign.cityfarmer.R
+import com.CapstoneDesign.cityfarmer.adapter.InventoryRecyclerViewAdapter
+import com.CapstoneDesign.cityfarmer.adapter.MapRecyclerViewAdapter
+import com.CapstoneDesign.cityfarmer.databinding.ActivityInventoryBinding
 import com.CapstoneDesign.cityfarmer.databinding.ActivityMapBinding
 import com.CapstoneDesign.cityfarmer.`object`.Farm
+import com.CapstoneDesign.cityfarmer.`object`.Item
+import com.CapstoneDesign.cityfarmer.`object`.Post
+import com.CapstoneDesign.cityfarmer.`object`.User
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.toObject
 import com.naver.maps.geometry.LatLng
@@ -20,33 +28,46 @@ import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.Overlay
 import com.naver.maps.map.util.FusedLocationSource
 
-class MapActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClickListener {
     private lateinit var auth: FirebaseAuth
+    private lateinit var db : FirebaseFirestore
     private val LOCATION_PERMISSION_REQUEST_CODE = 5000
     private lateinit var arrayListMarker: ArrayList<Marker>
     private val PERMISSIONS = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION,
     )
-
     private lateinit var binding: ActivityMapBinding
     private lateinit var naverMap: NaverMap
     private lateinit var locationSource: FusedLocationSource
+
+    private lateinit var adapter : MapRecyclerViewAdapter
+    private lateinit var mypost : ArrayList<Post>
+
 
     // onCreate에서 권한을 확인하며 위치 권한이 없을 경우 사용자에게 권한을 요청한다.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView( R.layout.activity_map)
 
-        auth = Firebase.auth
-
         if (!hasPermission()) {
             ActivityCompat.requestPermissions(this, PERMISSIONS, LOCATION_PERMISSION_REQUEST_CODE)
         } else {
             initMapView()
         }
+        //데이터 바인딩 하기 위한 설정
+        binding = ActivityMapBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        //mypost 배열을 사용하기 전 초기화 해주기
+        mypost = ArrayList<Post>()
+        //파이어베이스 권한 생성 및 받아오기
+        auth = Firebase.auth
+        //파이어스토어 DB 접근 객체 얻어오기
+        db = FirebaseFirestore.getInstance()
+
     }
 
     private fun initMapView() {
@@ -91,10 +112,54 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                     var marker = Marker()//임시 마커 생성
                     marker.position = LatLng(farm.lat,farm.lon) //가져온 농장의 좌표로 마커 좌표 설정
                     marker.map = naverMap //마커 맵을 naver map으로 지정
-                    marker.captionText = farm.name
+                    marker.captionText = farm.name //마커의 이름을 농장 이름으로 설정
+                    marker.onClickListener = this@MapActivity //마커 클릭시 실행 할 온클릭 리스너 설정
                     arrayListMarker.add(marker)
                 }
             }
+        }
+    }
+
+    //마커 클릭시 실행되는 마커클릭리스너를 오버라이드 하여 클릭한 농장의 게시글이 바텀시트에 뜨게 한다.
+    private val markerClickListner = object : Overlay.OnClickListener{
+        override fun onClick(overlay: Overlay): Boolean {
+            if(overlay is Marker){
+                    //내 인벤토리의 아이템 리스트 전부 가져오기 시작
+                    db.collection("Farm").document(overlay.captionText).get()
+                        .addOnSuccessListener {document ->
+                            //만약 document가 null이 아니라면 해당 경로에 데이터가 존재하는 것이므로 가져온다.
+                            if( document != null)
+                            {
+                                //mypost 초기화
+                                mypost = ArrayList<Post>()
+                                //클릭한 농장 객체 가져오기
+                                val myFarm = document.toObject<Farm>(Farm::class.java)
+                                //내 인벤토리 가져오기
+                                val tempList : ArrayList<Post> = myFarm!!.post
+                                for( i in tempList )
+                                {
+                                    mypost.add(i)
+                                }
+                            }
+                            setRecyclerView(overlay.captionText)
+                        }
+            }
+            return false
+        }
+    }
+
+    override fun onClick(overlay: Overlay): Boolean {
+        return markerClickListner.onClick(overlay)
+    }
+
+    private fun setRecyclerView(farm: String){
+        // 리사이클러뷰 설정
+        runOnUiThread{
+            this@MapActivity.adapter = MapRecyclerViewAdapter(mypost) // 어댑터 객체 할당
+            binding.bottomSheet.bottomSheetTitleTextView.text = farm
+            binding.bottomSheet.recyclerViewMap.adapter = this@MapActivity.adapter // 리사이클러뷰 어댑터로 위에 만든 어댑터 올리기
+            binding.bottomSheet.recyclerViewMap.layoutManager = LinearLayoutManager(this@MapActivity) // 레이아웃 매니저 설정
+            adapter.notifyDataSetChanged()
         }
     }
 }
