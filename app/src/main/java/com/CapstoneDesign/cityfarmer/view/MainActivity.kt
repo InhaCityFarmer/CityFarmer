@@ -53,7 +53,9 @@ class MainActivity : AppCompatActivity() {
 
         val btnDB = findViewById<Button>(R.id.btnDashboard)
         btnDB.setOnClickListener {
-            val intent = Intent(this, DaashboardActivity::class.java)
+            val intent = Intent(this, DashboardActivity::class.java)
+            val user = auth.uid
+            intent.putExtra("currentUserUid", user!!.toString())
             startActivity(intent)
         }
 
@@ -90,10 +92,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val btnDashboard = findViewById<Button>(R.id.btnDashboard)
-        btnDashboard.setOnClickListener{
-
-        }
 
     }
 }

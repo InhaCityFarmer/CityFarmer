@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.DashboardActivity"
-    android:orientation="vertical"
-    android:weightSum="100"
-    >
+    tools:context=".view.LineChartActivity">
 
-
-    <androidx.recyclerview.widget.RecyclerView
+    <com.github.mikephil.charting.charts.LineChart
+        android:layout_marginTop="100dp"
+        android:id="@+id/lineChart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/croplistRecyclerView"
-        ></androidx.recyclerview.widget.RecyclerView>
-
-
+        android:layout_marginBottom="100dp"
+        />
 
 </RelativeLayout>
