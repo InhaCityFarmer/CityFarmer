@@ -1,6 +1,8 @@
 package com.CapstoneDesign.cityfarmer.adapter
 
 import android.view.LayoutInflater
+import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.CapstoneDesign.cityfarmer.databinding.ActivityInventoryBinding
@@ -23,6 +25,8 @@ class MapRecyclerViewAdapter (private val post : ArrayList<Post>)
         val root = binding.root
     }
 
+    private lateinit var itemClickListener : OnItemClickListener
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         // item_todo.xml 뷰 바인딩 객체 생성
         val binding: RecyclerviewMapItemBinding =
@@ -35,10 +39,27 @@ class MapRecyclerViewAdapter (private val post : ArrayList<Post>)
         holder.textTitle.text = item.title
         holder.textWriter.text = item.writer
         holder.textUID.text = item.writerUID
+
+        //아이템 클릭을 위한 setOnClickListener에서 새로 정의한 onClick 호출
+        holder.itemView.setOnClickListener {
+            itemClickListener.onClick(it, position)
+        }
     }
+
+    interface OnItemClickListener {
+        fun onClick(v: View, position: Int)
+    }
+
+    fun setItemClickListener(onItemClickListener: OnItemClickListener){
+        this.itemClickListener = onItemClickListener
+    }
+
+
 
     override fun getItemCount(): Int {
         // 리사이클러뷰 아이템 개수는 할 일 리스트 크기
         return post.size
     }
+
+
 }

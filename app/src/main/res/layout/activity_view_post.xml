@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    tools:context=".view.ViewPostActivity">
+
+    <EditText
+        android:id="@+id/editTextViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="제목"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/editTextViewBody"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/editTextViewBody"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:hint="내용"
+        app:layout_constraintTop_toBottomOf="@id/editTextViewTitle"
+        app:layout_constraintBottom_toTopOf="@id/btnGoChat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:singleLine="false" />
+
+    <Button
+        android:id="@+id/btnGoChat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_alignParentBottom="true"
+        android:text="채팅하기"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@id/editTextViewBody"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

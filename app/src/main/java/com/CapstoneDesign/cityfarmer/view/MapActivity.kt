@@ -4,7 +4,9 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -68,6 +70,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClickList
         auth = Firebase.auth
         //파이어스토어 DB 접근 객체 얻어오기
         db = FirebaseFirestore.getInstance()
+        // 어댑터 객체 할당
+        //this@MapActivity.adapter = MapRecyclerViewAdapter(mypost)
 
         //글쓰기 버튼
         binding.btnPost.setOnClickListener {
@@ -107,6 +111,10 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClickList
             //바텀시트 펼침
             bottomBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
+
+
+
+
     }
 
     private fun initMapView() {
@@ -198,6 +206,21 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClickList
             binding.bottomSheet.recyclerViewMap.adapter = this@MapActivity.adapter // 리사이클러뷰 어댑터로 위에 만든 어댑터 올리기
             binding.bottomSheet.recyclerViewMap.layoutManager = LinearLayoutManager(this@MapActivity) // 레이아웃 매니저 설정
             adapter.notifyDataSetChanged()
+            adapter.setItemClickListener(object : MapRecyclerViewAdapter.OnItemClickListener{
+                override fun onClick(v: View, position: Int) {
+                    // 클릭 시 이벤트 작성
+//                    Toast.makeText(v.context,
+//                        "${mypost[position].title}\n${mypost[position].writer}",
+//                        Toast.LENGTH_SHORT).show()
+
+                    val intent = Intent(baseContext, ViewPostActivity::class.java)
+                    intent.putExtra("title", mypost[position].title)
+                    intent.putExtra("body", mypost[position].body)
+                    intent.putExtra("writer", mypost[position].writer)
+                    intent.putExtra("writerUID", mypost[position].writerUID)
+                    startActivity(intent)
+                }
+            })
         }
     }
 }
