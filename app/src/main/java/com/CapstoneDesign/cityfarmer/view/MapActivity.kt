@@ -69,11 +69,14 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClickList
         //파이어스토어 DB 접근 객체 얻어오기
         db = FirebaseFirestore.getInstance()
 
+        //글쓰기 버튼
         binding.btnPost.setOnClickListener {
-            val intent = Intent(this,MapActivity::class.java)
+            // 누르면 PostActivity로 intent함
+            val intent = Intent(this,PostActivity::class.java)
             startActivity(intent)
         }
 
+        //검색 버튼
         binding.btnSearch.setOnClickListener {
             //유저가 입력한 검색어 가져옴
             val textSearch = binding.editTextSearchField.text
