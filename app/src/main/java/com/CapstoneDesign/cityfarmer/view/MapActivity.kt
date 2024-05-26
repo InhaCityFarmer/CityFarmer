@@ -1,8 +1,10 @@
 package com.CapstoneDesign.cityfarmer.view
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -16,6 +18,7 @@ import com.CapstoneDesign.cityfarmer.`object`.Farm
 import com.CapstoneDesign.cityfarmer.`object`.Item
 import com.CapstoneDesign.cityfarmer.`object`.Post
 import com.CapstoneDesign.cityfarmer.`object`.User
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -43,10 +46,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClickList
     private lateinit var binding: ActivityMapBinding
     private lateinit var naverMap: NaverMap
     private lateinit var locationSource: FusedLocationSource
-
     private lateinit var adapter : MapRecyclerViewAdapter
     private lateinit var mypost : ArrayList<Post>
-
 
     // onCreate에서 권한을 확인하며 위치 권한이 없을 경우 사용자에게 권한을 요청한다.
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,6 +69,41 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClickList
         //파이어스토어 DB 접근 객체 얻어오기
         db = FirebaseFirestore.getInstance()
 
+        binding.btnPost.setOnClickListener {
+            val intent = Intent(this,MapActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnSearch.setOnClickListener {
+            //유저가 입력한 검색어 가져옴
+            val textSearch = binding.editTextSearchField.text
+            mypost = ArrayList<Post>()
+            db.collection("Farm").get().addOnSuccessListener {documents ->
+                if(documents.isEmpty) {}
+                else {
+                    for(document in documents) {//DB에 존재하는 모든 농장 불러옴
+                        var farm = document.toObject(Farm::class.java)//Farm 객체 타입으로 임시 저장
+                        var tempPostLists = farm.post
+                        for( tempPostList in tempPostLists)
+                        {
+                            //유저가 입력한 검색어를 포함하는 게시글 제목이 있으면 해당 게시글을
+                            //mypost에 추가해서 리사이클러뷰에 띄워준다.
+                            if(tempPostList.title.contains(textSearch))
+                            {
+                                mypost.add(tempPostList)
+                            }
+                        }
+                    }
+                    //유저가 입력한 검색어로 바텀 시트 타이틀 변경 및 검색어를 포함하는 게시글 띄움
+                    setRecyclerView(textSearch.toString())
+                }
+            }
+
+            //바텀시트 펼치기 위해 bottomBehavior 할당
+            val bottomBehavior = BottomSheetBehavior.from(binding.bottomSheet.root)
+            //바텀시트 펼침
+            bottomBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
     }
 
     private fun initMapView() {
@@ -103,7 +139,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClickList
         // 위치를 추적하면서 카메라도 따라 움직인다.
         naverMap.locationTrackingMode = LocationTrackingMode.Follow
         arrayListMarker = ArrayList<Marker>()
-        val db: FirebaseFirestore = FirebaseFirestore.getInstance()
         db.collection("Farm").get().addOnSuccessListener {documents ->
             if(documents.isEmpty) {}
             else {
