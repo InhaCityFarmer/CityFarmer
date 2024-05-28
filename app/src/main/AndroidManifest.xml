@@ -58,7 +58,7 @@
             android:name=".view.MapActivity"
             android:exported="true" />
         <activity
-            android:name=".view.ChatoomActivity"
+            android:name=".view.ChatroomActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan"/>
         <activity

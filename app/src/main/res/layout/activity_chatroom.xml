@@ -6,8 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ChatoomActivity"
-    android:windowSoftInputMode="adjustResize"
+    tools:context=".view.ChatroomActivity"
     android:fitsSystemWindows="true"
     >
 

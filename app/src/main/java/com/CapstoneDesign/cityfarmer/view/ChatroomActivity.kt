@@ -17,7 +17,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.firestore
 
-class ChatoomActivity : AppCompatActivity() {
+class ChatroomActivity : AppCompatActivity() {
     private lateinit var opponentUserUid : String
     private lateinit var currentUserUid : String
     private lateinit var currentUserName : String
