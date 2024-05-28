@@ -35,13 +35,11 @@
             android:layout_gravity="center_vertical"
             android:spinnerMode="dropdown" />
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:textColorHint="@color/black"
-            >
+            android:textColorHint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textItemName"
@@ -50,18 +48,14 @@
                 android:hint="아이템 이름"
                 android:inputType="text"
                 android:textColor="@color/black"
-                android:maxLength="20">
-
-            </com.google.android.material.textfield.TextInputEditText>
-
+                android:maxLength="20" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:textColorHint="@color/black"
-            >
+            android:textColorHint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textItemNumber"
@@ -70,12 +64,8 @@
                 android:hint="개수"
                 android:inputType="number"
                 android:textColor="@color/black"
-                android:maxLength="5">
-
-            </com.google.android.material.textfield.TextInputEditText>
-
+                android:maxLength="5" />
         </com.google.android.material.textfield.TextInputLayout>
-
     </LinearLayout>
 
     <View
@@ -111,7 +101,5 @@
             android:text="닫기"
             android:textColor="@color/black"
             android:textSize="15sp" />
-
     </LinearLayout>
-
 </LinearLayout>
