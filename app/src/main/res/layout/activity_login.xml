@@ -8,6 +8,17 @@
     android:background="#53A84C"
     tools:context=".view.MainActivity">
 
+    <ImageView
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        android:src="@drawable/cityfarmer_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.544"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.199" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -35,19 +46,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <EditText
             android:id="@+id/textLoginPW"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:backgroundTint="#FFFFFF"
             android:layout_marginTop="11dp"
             android:layout_marginBottom="70dp"
-            android:backgroundTint="#FFFFFF"
             android:ems="10"
             android:hint="비밀번호"
             android:inputType="textPassword"
-            android:paddingLeft="8dp"
+            android:paddingLeft="9dp"
             android:textColor="#FFFFFF"
             android:textColorHint="#8DFFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/btnLogin"
