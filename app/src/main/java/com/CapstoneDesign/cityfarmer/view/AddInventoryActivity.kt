@@ -25,9 +25,9 @@ class AddInventoryActivity : AppCompatActivity() {
         ArrayAdapter.createFromResource(
             this,
             R.array.inventory_item_array,
-            android.R.layout.simple_spinner_dropdown_item
+            R.layout.spinner_dropdown_item
         ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
             spinner.adapter = adapter
         }
 
