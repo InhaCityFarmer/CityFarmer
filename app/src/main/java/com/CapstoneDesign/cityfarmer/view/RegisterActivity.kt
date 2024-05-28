@@ -85,7 +85,7 @@ class RegisterActivity : AppCompatActivity() {
                         val user = User( //유저 객체 생성 및 입력 받은 값 삽입
                             UID = me!!.uid,
                             name = textNickname.text.toString(),
-                            firstLogin = false,
+                            firstLogin = true,
                             farmName = textFarmName.text.toString(),
                             address = textFarmAddress.text.toString(),
                             sector = textFarmNumber.text.toString(),
