@@ -61,7 +61,8 @@
         <activity
             android:name=".view.ChatroomActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan"
+            android:configChanges="screenSize|screenLayout"/>
         <activity
             android:name=".view.SplashActivity"
             android:exported="true"
