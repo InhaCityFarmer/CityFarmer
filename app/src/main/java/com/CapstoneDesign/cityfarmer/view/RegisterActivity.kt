@@ -89,7 +89,6 @@ class RegisterActivity : AppCompatActivity() {
                             farmName = textFarmName.text.toString(),
                             address = textFarmAddress.text.toString(),
                             sector = textFarmNumber.text.toString(),
-                            crop = ArrayList<HashMap<String,Array<Double>>>(),
                             inventory = ArrayList<Item>(),
                             prev_chat = HashMap<String,String>()
                             )
