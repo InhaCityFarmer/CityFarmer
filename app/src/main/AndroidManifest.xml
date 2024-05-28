@@ -46,7 +46,8 @@
         <activity
             android:name=".view.ChatBotActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan"
+            android:configChanges="screenSize|screenLayout"/>
         <activity
             android:name=".view.AddInventoryActivity"
             android:exported="true"
