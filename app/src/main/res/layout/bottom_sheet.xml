@@ -42,6 +42,7 @@
         android:layout_height="1dp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:background="#8BBC87"
         android:id="@+id/recyclerViewMap"
         android:layout_width="0dp"
         android:layout_height="0dp"
