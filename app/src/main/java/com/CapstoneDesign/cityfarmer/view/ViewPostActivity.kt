@@ -2,6 +2,7 @@ package com.CapstoneDesign.cityfarmer.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
@@ -18,6 +19,8 @@ class ViewPostActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db : FirebaseFirestore
     private lateinit var currentUserName : String
+    private lateinit var writerUid : String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,6 +38,8 @@ class ViewPostActivity : AppCompatActivity() {
                 currentUserName = document.get("name").toString()
             }
         }
+        writerUid = intent.getStringExtra("writerUID").toString()
+
 
         val editTextViewTitle = findViewById<EditText>(R.id.editTextViewTitle)
         val editTextViewBody = findViewById<EditText>(R.id.editTextViewBody)
@@ -49,11 +54,15 @@ class ViewPostActivity : AppCompatActivity() {
         //채팅하기 버튼 누르면 채팅으로 넘겨줌
         btnGoChat.setOnClickListener {
 
+
+
+
+
             val intent = Intent(baseContext, ChatoomActivity::class.java)
             intent.putExtra("currentUserName", currentUserName )
             intent.putExtra("currentUserUid", auth.currentUser!!.uid.toString())
             intent.putExtra("opponentUserName", intent.getStringExtra("writer"))
-            intent.putExtra("opponentUserUid", intent.getStringExtra("writerUID"))
+            intent.putExtra("opponentUserUid", writerUid)
             startActivity(intent)
         }
     }

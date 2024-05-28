@@ -8,11 +8,22 @@
     android:layout_height="match_parent"
     tools:context=".view.PrevChatActivity"
     android:orientation="vertical"
+    android:background="#93A1CA"
     >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        android:text = "나의 전 채팅 목록"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        ></TextView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/rvUsers"
         ></androidx.recyclerview.widget.RecyclerView>
 

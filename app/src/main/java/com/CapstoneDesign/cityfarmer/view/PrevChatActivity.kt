@@ -22,13 +22,8 @@ class PrevChatActivity : AppCompatActivity() {
     private lateinit var currentUserName : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // currentUserUid를 intent로 main에서 받아옴
         currnetUserUid = intent.getStringExtra("currentUserUid").toString()
-     //   currnetUserUid = "aTQLPHQJmiY6oXzMpCp9OfJhCZr2"
-
-        Log.d("currentUserUid in prevchatActivity " , currnetUserUid)
-        currnetUserUid = "aTQLPHQJmiY6oXzMpCp9OfJhCZr2"
-        Log.d("changed currentUserUid in prevchatActivity " , currnetUserUid)
-
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -45,12 +40,14 @@ class PrevChatActivity : AppCompatActivity() {
         val userCollection = db.collection("User")
         val documentRef = userCollection.document(currnetUserUid)
 
+        ////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////
+        // 현재 uid를 통해서 이름을 얻는 작업
         documentRef.get()
             .addOnSuccessListener { documentSnapshot->
                 if(documentSnapshot.exists()){
                     currentUserName = documentSnapshot.get("name") as String
                     Log.d("이름 데이터 읽어오기 성공", "$currentUserName")
-
                 }
                 else{
 
@@ -60,7 +57,13 @@ class PrevChatActivity : AppCompatActivity() {
                 Log.d("이름 데이터 읽어오기 실패", "$exception")
 
             }
+        ////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////
 
+        ////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////
+        // 이제부터는 User collection에서 uid를 통해 document에 접근, 그 아래 prevchat에서
+        // userlist 받아오고, 그 userlist를 바탕으로 userNamelist에 넣어서 recyclerview에 보여주는 파트
         documentRef
             .get()
             .addOnSuccessListener { documentSnapshot ->
@@ -68,8 +71,12 @@ class PrevChatActivity : AppCompatActivity() {
                     val prevChatMap = documentSnapshot.get("prev_chat") as? Map<String, String>
                     if (prevChatMap != null) {
                         for ((key, value) in prevChatMap) {
-                            // 맵의 각 키-값 쌍을 userList에 추가
+                            // 맵의 각 키값을 userList에 추가
+                            // 여기서 key값이 상대방의 uid ( prev_chat 부분이 uid-chatroomid의 pair로 되어있음
                             userList.add(key)
+                            ////////////////////////////////////////////////////////////////
+                            ////////////////////////////////////////////////////////////////
+                            // 여기는 key를 가지고 Uesr collection에서 key(uid)에 매칭되는 name을 nameList에 추가하는 과정
 
                             userCollection
                                 .whereEqualTo(FieldPath.documentId(), key)
@@ -80,10 +87,15 @@ class PrevChatActivity : AppCompatActivity() {
                                         if (name != null) {
                                             Log.d("이름", name)
                                             userNameList.add(name)
-                                        } else {
+                                        }
+                                        else {
                                             Log.d("name", "name 필드가 없습니다.")
                                         }
                                     }
+
+                                    ////////////////////////////////////////////////////////////////
+                                    ////////////////////////////////////////////////////////////////
+
                                     val rv = findViewById<RecyclerView>(R.id.rvUsers)
 
                                     val rv_adapter = chatAdapter(userNameList)
@@ -98,8 +110,7 @@ class PrevChatActivity : AppCompatActivity() {
                                             intent.putExtra("currentUserName",currentUserName)
                                             startActivity(intent)
                                         }
-
-
+                                        
                                     }
                                 }
                                 .addOnFailureListener { exception ->
