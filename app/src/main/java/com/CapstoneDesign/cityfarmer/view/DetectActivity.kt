@@ -93,7 +93,7 @@ class DetectActivity : AppCompatActivity() {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 takePictureResult.launch(null)
             } else {
-                Toast.makeText(this, "Camera permission is required to take a photo", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "카메라 권한을 허용 해주세요", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -144,22 +144,18 @@ class DetectActivity : AppCompatActivity() {
                             val item = jsonResponse.getJSONObject(i)
                             val label = item.getString("label")
                             val score = item.getDouble("score")
-                            results.append("Label: $label, Score: ${"%.2f".format(score * 100)}%\n")
+                            results.append("$label, ${"%.2f".format(score * 100)}%\n")
                         }
-                        Toast.makeText(this@DetectActivity, results.toString(), Toast.LENGTH_LONG).show()
                         resultTextView.text = results.toString()
                     } else {
-                        Log.e("API_ERROR", "Error: ${response.code} ${response.message}")
-                        Toast.makeText(this@DetectActivity, "Error: ${response.message}", Toast.LENGTH_LONG).show()
-                        resultTextView.text = "Error: ${response.message}"
+                        resultTextView.text = "죄송합니다. 다시 시도해 주세요"
                     }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
                 Log.e("API_ERROR", "Exception: ${e.message}")
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@DetectActivity, "Failed to send image to API", Toast.LENGTH_SHORT).show()
-                    resultTextView.text = "Failed to send image to API"
+                    resultTextView.text = "죄송합니다. 다시 시도해 주세요"
                 }
             }
         }
@@ -174,10 +170,8 @@ class DetectActivity : AppCompatActivity() {
             sendImageToApi(byteArray)
         } catch (e: IOException) {
             e.printStackTrace()
-            Log.e("IMAGE_ERROR", "Exception: ${e.message}")
             runOnUiThread {
-                Toast.makeText(this@DetectActivity, "Failed to process bitmap", Toast.LENGTH_SHORT).show()
-                resultTextView.text = "Failed to process bitmap"
+                resultTextView.text = "죄송합니다. 다시 시도해 주세요"
             }
         }
     }
