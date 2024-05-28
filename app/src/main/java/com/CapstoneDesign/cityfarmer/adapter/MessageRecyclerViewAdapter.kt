@@ -22,10 +22,12 @@ class MessageRecyclerViewAdapter(private val messageList: List<Message>) :
         val message = messageList[position]
         if (message.sentBy == Message.SENT_BY_ME) {
             holder.left_chat_view.visibility = View.GONE
+            //holder.left_chat_view.visibility = View.VISIBLE
             holder.right_chat_view.visibility = View.VISIBLE
             holder.right_chat_tv.text = message.message
         } else {
             holder.right_chat_view.visibility = View.GONE
+            //holder.right_chat_view.visibility = View.VISIBLE
             holder.left_chat_view.visibility = View.VISIBLE
             holder.left_chat_tv.text = message.message
         }
