@@ -1,6 +1,5 @@
 package com.CapstoneDesign.cityfarmer.view
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -70,56 +69,62 @@ class InventoryActivity : AppCompatActivity() {
     }
 
 
-    private fun getMyTool() {
-        db.collection("User").document(auth.currentUser!!.uid.toString())
-            .addSnapshotListener { document, e ->
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e)
-                    return@addSnapshotListener
-                }
-
-                if (document != null && document.exists()) {
-                    // myItemList 초기화
-                    myItem = ArrayList()
-                    // 내 유저 객체 가져오기
-                    val myUser = document.toObject<User>(User::class.java)
-                    // 내 인벤토리 가져오기
-                    val tempList: ArrayList<Item> = myUser!!.inventory
-                    for (i in tempList) {
-                        // 타입이 농기구인 경우에만 어레이리스트에 넣어서 리사이클러뷰로 보내줌
-                        if (i.type == "농기구") {
-                            myItem.add(i)
+    private fun getMyTool(){
+        Thread{
+            //내 인벤토리의 아이템 리스트 전부 가져오기 시작
+            db.collection("User").document(auth.currentUser!!.uid.toString()).get()
+                .addOnSuccessListener {document ->
+                    //만약 document가 null이 아니라면 해당 경로에 데이터가 존재하는 것이므로 가져온다.
+                    if( document != null)
+                    {
+                        //myItemList 초기화
+                        myItem = ArrayList<Item>()
+                        //내 유저 객체 가져오기
+                        val myUser = document.toObject<User>(User::class.java)
+                        //내 인벤토리 가져오기
+                        val tempList : ArrayList<Item> = myUser!!.inventory
+                        for( i in tempList )
+                        {
+                            //타입이 농기구인 경우에만 어레이리스트에 넣어서 리사이클러뷰로 보내줌
+                          if( i.type == "농기구")
+                          {
+                              myItem.add(i)
+                          }
                         }
                     }
                     setRecyclerView()
                 }
-            }
+
+        }.start()
     }
 
-    private fun getMyCrop() {
-        db.collection("User").document(auth.currentUser!!.uid.toString())
-            .addSnapshotListener { document, e ->
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e)
-                    return@addSnapshotListener
-                }
-
-                if (document != null && document.exists()) {
-                    // myItemList 초기화
-                    myItem = ArrayList()
-                    // 내 유저 객체 가져오기
-                    val myUser = document.toObject<User>(User::class.java)
-                    // 내 인벤토리 가져오기
-                    val tempList: ArrayList<Item> = myUser!!.inventory
-                    for (i in tempList) {
-                        // 타입이 농작물인 경우에만 어레이리스트에 넣어서 리사이클러뷰로 보내줌
-                        if (i.type == "농작물") {
-                            myItem.add(i)
+    private fun getMyCrop(){
+        Thread{
+            //내 인벤토리의 아이템 리스트 전부 가져오기 시작
+            db.collection("User").document(auth.currentUser!!.uid.toString()).get()
+                .addOnSuccessListener {document ->
+                    //만약 document가 null이 아니라면 해당 경로에 데이터가 존재하는 것이므로 가져온다.
+                    if( document != null)
+                    {
+                        //myItemList 초기화
+                        myItem = ArrayList<Item>()
+                        //내 유저 객체 가져오기
+                        val myUser = document.toObject<User>(User::class.java)
+                        //내 인벤토리 가져오기
+                        val tempList : ArrayList<Item> = myUser!!.inventory
+                        for( i in tempList )
+                        {
+                            //타입이 농작물인 경우에만 어레이리스트에 넣어서 리사이클러뷰로 보내줌
+                            if( i.type == "농작물")
+                            {
+                                myItem.add(i)
+                            }
                         }
                     }
                     setRecyclerView()
                 }
-            }
+
+        }.start()
     }
 
     private fun setRecyclerView(){
