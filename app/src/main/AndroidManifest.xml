@@ -59,7 +59,8 @@
             android:exported="true" />
         <activity
             android:name=".view.ChatoomActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".view.SplashActivity"
             android:exported="true"

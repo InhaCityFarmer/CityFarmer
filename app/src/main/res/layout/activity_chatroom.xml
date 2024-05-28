@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".view.ChatoomActivity"
     android:windowSoftInputMode="adjustResize"
+    android:fitsSystemWindows="true"
     >
 
     <androidx.recyclerview.widget.RecyclerView
@@ -37,7 +38,8 @@
             android:layout_marginStart="10dp"
             android:layout_weight="115"
             android:hint="메시지를 입력하세요"
-            android:paddingStart="10dp" />
+            android:paddingStart="10dp"
+            android:windowSoftInputMode="adjustResize"/>
 
         <Button
             android:id="@+id/btnSendMessage"
