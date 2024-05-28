@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.CapstoneDesign.cityfarmer.R
+import com.CapstoneDesign.cityfarmer.`object`.Crop
 import com.CapstoneDesign.cityfarmer.`object`.Farm
 // merge 할때 추가안된애들 추가함
 import com.CapstoneDesign.cityfarmer.`object`.Item
@@ -94,6 +95,9 @@ class RegisterActivity : AppCompatActivity() {
                             )
                         //db에 유저 객체 저장
                         db.collection("User").document(me.uid).set(user)
+                        db.collection("User").document(me.uid).collection("crop").document("tomato").set(
+                            Crop()
+                        )
 
                         //db에서 유저가 입력한 farmname과 일치하는 농장 있는지 탐색
                         db.collection("Farm")
