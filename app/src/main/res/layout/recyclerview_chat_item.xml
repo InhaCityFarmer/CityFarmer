@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/leftChatView"
         android:background="@drawable/rounded_corner"
-        android:backgroundTint="@color/purple_200"
+        android:backgroundTint="#53D69F"
         android:layout_marginEnd="80dp"
         android:padding="8dp">
 
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/rightChatView"
         android:background="@drawable/rounded_corner"
-        android:backgroundTint="@color/teal_200"
+        android:backgroundTint="#4A8CD1"
         android:layout_marginStart="80dp"
         android:layout_alignParentEnd="true"
         android:padding="8dp"
