@@ -54,13 +54,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClickList
     // onCreate에서 권한을 확인하며 위치 권한이 없을 경우 사용자에게 권한을 요청한다.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView( R.layout.activity_map)
-
-        if (!hasPermission()) {
-            ActivityCompat.requestPermissions(this, PERMISSIONS, LOCATION_PERMISSION_REQUEST_CODE)
-        } else {
-            initMapView()
-        }
         //데이터 바인딩 하기 위한 설정
         binding = ActivityMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -71,7 +64,17 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClickList
         //파이어스토어 DB 접근 객체 얻어오기
         db = FirebaseFirestore.getInstance()
         // 어댑터 객체 할당
-        //this@MapActivity.adapter = MapRecyclerViewAdapter(mypost)
+        this@MapActivity.adapter = MapRecyclerViewAdapter(mypost)
+        // 리사이클러뷰 어댑터로 위에 만든 어댑터 올리기
+        binding.bottomSheet.recyclerViewMap.adapter = this@MapActivity.adapter
+        // 레이아웃 매니저 설정
+        binding.bottomSheet.recyclerViewMap.layoutManager = LinearLayoutManager(this@MapActivity)
+
+        if (!hasPermission()) {
+            ActivityCompat.requestPermissions(this, PERMISSIONS, LOCATION_PERMISSION_REQUEST_CODE)
+        } else {
+            initMapView()
+        }
 
         //글쓰기 버튼
         binding.btnPost.setOnClickListener {
@@ -105,17 +108,13 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClickList
                     setRecyclerView(textSearch.toString())
                 }
             }
-
             //바텀시트 펼치기 위해 bottomBehavior 할당
             val bottomBehavior = BottomSheetBehavior.from(binding.bottomSheet.root)
             //바텀시트 펼침
             bottomBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
-
-
-
-
     }
+
 
     private fun initMapView() {
         val fm = supportFragmentManager
@@ -209,10 +208,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClickList
             adapter.setItemClickListener(object : MapRecyclerViewAdapter.OnItemClickListener{
                 override fun onClick(v: View, position: Int) {
                     // 클릭 시 이벤트 작성
-//                    Toast.makeText(v.context,
-//                        "${mypost[position].title}\n${mypost[position].writer}",
-//                        Toast.LENGTH_SHORT).show()
-
                     val intent = Intent(baseContext, ViewPostActivity::class.java)
                     intent.putExtra("title", mypost[position].title)
                     intent.putExtra("body", mypost[position].body)

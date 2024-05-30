@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    app:behavior_peekHeight="100dp"
+    app:behavior_peekHeight="50dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <View
@@ -22,7 +22,7 @@
     <TextView
         android:id="@+id/bottomSheetTitleTextView"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:text="시티파머"
         android:textColor="@color/black"
@@ -42,6 +42,7 @@
         android:layout_height="1dp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:background="#8BBC87"
         android:id="@+id/recyclerViewMap"
         android:layout_width="0dp"
         android:layout_height="0dp"
