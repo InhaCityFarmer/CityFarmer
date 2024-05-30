@@ -103,7 +103,7 @@ class DashboardActivity : AppCompatActivity() {
             insets
         }
         val myWebView = findViewById<WebView>(R.id.myDashboardWebView)
-        var myUrl = "http://192.168.45.103:8501"
+        var myUrl = "http://43.202.237.52:8501"
         myWebView.webViewClient = WebViewClient()
         myWebView.webChromeClient = WebChromeClient()
         myWebView.settings.apply {
