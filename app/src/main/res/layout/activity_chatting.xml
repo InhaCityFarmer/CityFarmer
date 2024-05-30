@@ -8,20 +8,15 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:textColor="@color/black"
+        android:background="@drawable/chatting_border"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
         android:id = "@+id/chatTextplace"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="5dp"
-        android:text = "text"
-        android:textSize="35sp"
-        android:textStyle="bold"
+        android:textSize="25sp"
         ></TextView>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginBottom="15dp"
-        android:background="@color/black"
-        ></View>
 
 </LinearLayout>
