@@ -78,7 +78,9 @@
             android:exported="true" />
         <activity
             android:name=".view.RegisterActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"
+            android:configChanges="screenSize|screenLayout"/>
         <activity
             android:name=".view.LoginActivity"
             android:exported="true" /> <!-- 네이버 지도 사용하기 위한 메타 데이터 삽입 -->
