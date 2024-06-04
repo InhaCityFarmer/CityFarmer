@@ -23,6 +23,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".view.ModifyInventoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.ViewPostActivity"
             android:exported="false" />
         <activity
@@ -45,9 +48,9 @@
             android:exported="false" />
         <activity
             android:name=".view.ChatBotActivity"
+            android:configChanges="screenSize|screenLayout"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"
-            android:configChanges="screenSize|screenLayout"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.AddInventoryActivity"
             android:exported="true"
@@ -60,9 +63,9 @@
             android:exported="true" />
         <activity
             android:name=".view.ChatroomActivity"
+            android:configChanges="screenSize|screenLayout"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan"
-            android:configChanges="screenSize|screenLayout"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.SplashActivity"
             android:exported="true"
@@ -78,9 +81,9 @@
             android:exported="true" />
         <activity
             android:name=".view.RegisterActivity"
+            android:configChanges="screenSize|screenLayout"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan"
-            android:configChanges="screenSize|screenLayout"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.LoginActivity"
             android:exported="true" /> <!-- 네이버 지도 사용하기 위한 메타 데이터 삽입 -->

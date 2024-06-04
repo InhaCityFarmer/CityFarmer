@@ -1,10 +1,13 @@
 package com.CapstoneDesign.cityfarmer.view
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -54,9 +57,13 @@ class InventoryActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+
+
         //인벤토리에 농작물을 볼 수 있는 버튼
         val btnSearchCrop = findViewById<Button>(R.id.btnSearchCrop)
         btnSearchCrop.setOnClickListener {
+
             getMyCrop()
         }
 
@@ -66,74 +73,86 @@ class InventoryActivity : AppCompatActivity() {
             getMyTool()
         }
 
+
+
     }
 
 
-    private fun getMyTool(){
-        Thread{
-            //내 인벤토리의 아이템 리스트 전부 가져오기 시작
-            db.collection("User").document(auth.currentUser!!.uid.toString()).get()
-                .addOnSuccessListener {document ->
-                    //만약 document가 null이 아니라면 해당 경로에 데이터가 존재하는 것이므로 가져온다.
-                    if( document != null)
-                    {
-                        //myItemList 초기화
-                        myItem = ArrayList<Item>()
-                        //내 유저 객체 가져오기
-                        val myUser = document.toObject<User>(User::class.java)
-                        //내 인벤토리 가져오기
-                        val tempList : ArrayList<Item> = myUser!!.inventory
-                        for( i in tempList )
-                        {
-                            //타입이 농기구인 경우에만 어레이리스트에 넣어서 리사이클러뷰로 보내줌
-                          if( i.type == "농기구")
-                          {
-                              myItem.add(i)
-                          }
+    private fun getMyTool() {
+        db.collection("User").document(auth.currentUser!!.uid.toString())
+            .addSnapshotListener { document, e ->
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                if (document != null && document.exists()) {
+                    // myItemList 초기화
+                    myItem = ArrayList()
+                    // 내 유저 객체 가져오기
+                    val myUser = document.toObject<User>(User::class.java)
+                    // 내 인벤토리 가져오기
+                    val tempList: ArrayList<Item> = myUser!!.inventory
+                    for (i in tempList) {
+                        // 타입이 농기구인 경우에만 어레이리스트에 넣어서 리사이클러뷰로 보내줌
+                        if (i.type == "농기구") {
+                            myItem.add(i)
                         }
                     }
                     setRecyclerView()
                 }
-
-        }.start()
+            }
     }
 
-    private fun getMyCrop(){
-        Thread{
-            //내 인벤토리의 아이템 리스트 전부 가져오기 시작
-            db.collection("User").document(auth.currentUser!!.uid.toString()).get()
-                .addOnSuccessListener {document ->
-                    //만약 document가 null이 아니라면 해당 경로에 데이터가 존재하는 것이므로 가져온다.
-                    if( document != null)
-                    {
-                        //myItemList 초기화
-                        myItem = ArrayList<Item>()
-                        //내 유저 객체 가져오기
-                        val myUser = document.toObject<User>(User::class.java)
-                        //내 인벤토리 가져오기
-                        val tempList : ArrayList<Item> = myUser!!.inventory
-                        for( i in tempList )
-                        {
-                            //타입이 농작물인 경우에만 어레이리스트에 넣어서 리사이클러뷰로 보내줌
-                            if( i.type == "농작물")
-                            {
-                                myItem.add(i)
-                            }
+    private fun getMyCrop() {
+        db.collection("User").document(auth.currentUser!!.uid.toString())
+            .addSnapshotListener { document, e ->
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                if (document != null && document.exists()) {
+                    // myItemList 초기화
+                    myItem = ArrayList()
+                    // 내 유저 객체 가져오기
+                    val myUser = document.toObject<User>(User::class.java)
+                    // 내 인벤토리 가져오기
+                    val tempList: ArrayList<Item> = myUser!!.inventory
+                    for (i in tempList) {
+                        // 타입이 농작물인 경우에만 어레이리스트에 넣어서 리사이클러뷰로 보내줌
+                        if (i.type == "농작물") {
+                            myItem.add(i)
                         }
                     }
                     setRecyclerView()
                 }
-
-        }.start()
+            }
     }
 
-    private fun setRecyclerView(){
+    private fun setRecyclerView() {
         // 리사이클러뷰 설정
-        runOnUiThread{
+        runOnUiThread {
             this@InventoryActivity.adapter = InventoryRecyclerViewAdapter(myItem) // 어댑터 객체 할당
-            binding.recyclerViewInventory.adapter = this@InventoryActivity.adapter // 리사이클러뷰 어댑터로 위에 만든 어댑터 올리기
-            binding.recyclerViewInventory.layoutManager = LinearLayoutManager(this@InventoryActivity) // 레이아웃 매니저 설정
+            binding.recyclerViewInventory.adapter =
+                this@InventoryActivity.adapter // 리사이클러뷰 어댑터로 위에 만든 어댑터 올리기
+            binding.recyclerViewInventory.layoutManager =
+                LinearLayoutManager(this@InventoryActivity) // 레이아웃 매니저 설정
             adapter.notifyDataSetChanged()
+
+            adapter.itemclick = object : InventoryRecyclerViewAdapter.Itemclick {
+
+                override fun onclick(binding: View, position: Int) {
+                    val clickedItem = myItem[position]
+                    val itemname = myItem[position].name
+                    Toast.makeText(baseContext, "$itemname 수정 페이지로 이동", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@InventoryActivity, ModifyInventoryActivity::class.java)
+                    intent.putExtra("type",myItem[position].type)
+                    intent.putExtra("name",myItem[position].name)
+                    intent.putExtra("number",myItem[position].number.toString())
+                    startActivity(intent)
+                }
+            }
         }
     }
 }

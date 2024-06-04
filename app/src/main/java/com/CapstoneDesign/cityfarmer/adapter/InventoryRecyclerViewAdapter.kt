@@ -1,6 +1,7 @@
 package com.CapstoneDesign.cityfarmer.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.CapstoneDesign.cityfarmer.databinding.ActivityInventoryBinding
@@ -20,6 +21,12 @@ class InventoryRecyclerViewAdapter (private val item : ArrayList<Item>)
         val root = binding.root
     }
 
+    interface Itemclick{
+        fun onclick(binding : View, position: Int)
+    }
+
+    var itemclick : Itemclick? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         // item_todo.xml 뷰 바인딩 객체 생성
         val binding: RecyclerviewInventoryItemBinding =
@@ -31,6 +38,12 @@ class InventoryRecyclerViewAdapter (private val item : ArrayList<Item>)
         // 기존에 임시로 들어가 있던 값 실제 값으로 변경
         holder.textItemName.text = itemDate.name
         holder.textItemNumber.text = itemDate.number.toString()
+
+        if(itemclick != null) {
+            holder.itemView.setOnClickListener { v ->
+                itemclick?.onclick(v, position)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
