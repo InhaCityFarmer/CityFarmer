@@ -33,6 +33,7 @@ class InventoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_inventory)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -145,12 +146,12 @@ class InventoryActivity : AppCompatActivity() {
                 override fun onclick(binding: View, position: Int) {
                     val clickedItem = myItem[position]
                     val itemname = myItem[position].name
-                    Toast.makeText(baseContext, "$itemname 수정 페이지로 이동", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@InventoryActivity, ModifyInventoryActivity::class.java)
                     intent.putExtra("type",myItem[position].type)
                     intent.putExtra("name",myItem[position].name)
                     intent.putExtra("number",myItem[position].number.toString())
                     startActivity(intent)
+                    finish()
                 }
             }
         }

@@ -1,10 +1,12 @@
 package com.CapstoneDesign.cityfarmer.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -36,6 +38,13 @@ class ModifyInventoryActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val intent = Intent(baseContext,InventoryActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        })
 
         auth = Firebase.auth
         //파이어스토어 DB 접근 객체 얻어오기
@@ -58,12 +67,20 @@ class ModifyInventoryActivity : AppCompatActivity() {
         val btnCancle = findViewById<Button>(R.id.btnAddItemCancelInModify)
         btnCancle.setOnClickListener {
             Toast.makeText(this,"$itemName 수정 has been cancled",Toast.LENGTH_SHORT).show()
+            val intent = Intent(baseContext,InventoryActivity::class.java)
+            startActivity(intent)
             finish()
         }
 
         val btnUpdate = findViewById<Button>(R.id.btnModifyItem)
         btnUpdate.setOnClickListener {
             val textItemNumber = findViewById<TextInputEditText>(R.id.textItemNumberModify)
+            if(textItemNumber.text?.toString().isNullOrEmpty()){
+                Toast.makeText(baseContext,"갯수값이 설정되지 않음",Toast.LENGTH_SHORT).show()
+                val intent = Intent(baseContext,InventoryActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
             val intItemNumber = Integer.parseInt(textItemNumber.text.toString())
 
             val userId = auth.currentUser?.uid ?: return@setOnClickListener
@@ -95,17 +112,17 @@ class ModifyInventoryActivity : AppCompatActivity() {
                             .addOnSuccessListener {
                             }
                     }
-                    finish()
 
                 } else {
                     Toast.makeText(
                         this, "user document로 가는 path에 오류 발생",
                         Toast.LENGTH_SHORT
                     ).show()
-                    finish()
-
                 }
             }
+            val intent = Intent(baseContext,InventoryActivity::class.java)
+            startActivity(intent)
+            finish()
 
         }
 
@@ -138,14 +155,15 @@ class ModifyInventoryActivity : AppCompatActivity() {
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
-                        finish()
-
                     }
                 } else {
                     Log.d("아오", "Current data: null")
-                    finish()
                 }
             }
+            val intent = Intent(baseContext,InventoryActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }
+
