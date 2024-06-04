@@ -76,6 +76,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+          db.collection("User").document(auth.currentUser!!.uid.toString()).collection("crop")
+
+          val satisfied_Check = 0
+
         //MapActivity로 이동하는 버튼
         val btnMap = findViewById<Button>(R.id.btnMap)
         btnMap.setOnClickListener {
