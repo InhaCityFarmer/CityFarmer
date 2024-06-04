@@ -1,5 +1,6 @@
 package com.CapstoneDesign.cityfarmer.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -58,6 +59,8 @@ class ModifyInventoryActivity : AppCompatActivity() {
         val btnCancle = findViewById<Button>(R.id.btnAddItemCancelInModify)
         btnCancle.setOnClickListener {
             Toast.makeText(this,"$itemName 수정 has been cancled",Toast.LENGTH_SHORT).show()
+            val intent = Intent(baseContext,InventoryActivity::class.java)
+            startActivity(intent)
             finish()
         }
 
@@ -95,17 +98,17 @@ class ModifyInventoryActivity : AppCompatActivity() {
                             .addOnSuccessListener {
                             }
                     }
-                    finish()
 
                 } else {
                     Toast.makeText(
                         this, "user document로 가는 path에 오류 발생",
                         Toast.LENGTH_SHORT
                     ).show()
-                    finish()
-
                 }
             }
+            val intent = Intent(baseContext,InventoryActivity::class.java)
+            startActivity(intent)
+            finish()
 
         }
 
@@ -138,14 +141,14 @@ class ModifyInventoryActivity : AppCompatActivity() {
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
-                        finish()
-
                     }
                 } else {
                     Log.d("아오", "Current data: null")
-                    finish()
                 }
             }
+            val intent = Intent(baseContext,InventoryActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }

@@ -151,6 +151,7 @@ class InventoryActivity : AppCompatActivity() {
                     intent.putExtra("name",myItem[position].name)
                     intent.putExtra("number",myItem[position].number.toString())
                     startActivity(intent)
+                    finish()
                 }
             }
         }
