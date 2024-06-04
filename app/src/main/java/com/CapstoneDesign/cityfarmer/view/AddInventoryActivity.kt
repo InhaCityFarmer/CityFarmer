@@ -1,9 +1,11 @@
 package com.CapstoneDesign.cityfarmer.view
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.CapstoneDesign.cityfarmer.R
@@ -14,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import org.apache.commons.lang3.ObjectUtils.Null
 
 class AddInventoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,23 +42,31 @@ class AddInventoryActivity : AppCompatActivity() {
 
             val spinner = findViewById<Spinner>(R.id.spinnerInventoryItem)
             val textItemName = findViewById<TextInputEditText>(R.id.textItemName)
-            val textItemNumber = findViewById<TextInputEditText>(R.id.textItemNumber)
 
             val stringItemType = spinner.selectedItem.toString()
             val stringItemName = textItemName.text.toString()
-            val intItemNumber = Integer.parseInt(textItemNumber.text.toString())
 
-            db.collection("User").document(myAuth!!.uid).get()
-                .addOnSuccessListener { document ->
-                    if (document != null) {
-                        val myUser = document.toObject(User::class.java)
-                        val myInventory = myUser!!.inventory
-                        myInventory.add(Item(stringItemType, stringItemName, intItemNumber))
-                        myUser.inventory = myInventory
-                        db.collection("User").document(myAuth.uid).update("inventory", myInventory)
+            val textItemNumber = findViewById<TextInputEditText>(R.id.textItemNumber)
+            if(textItemNumber.text!!.toString().isNullOrEmpty()){
+                Toast.makeText(baseContext,"갯수값이 설정되지 않음", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                val intItemNumber = Integer.parseInt(textItemNumber.text.toString())
+
+                db.collection("User").document(myAuth!!.uid).get()
+                    .addOnSuccessListener { document ->
+                        if (document != null) {
+                            val myUser = document.toObject(User::class.java)
+                            val myInventory = myUser!!.inventory
+                            myInventory.add(Item(stringItemType, stringItemName, intItemNumber))
+                            myUser.inventory = myInventory
+                            db.collection("User").document(myAuth.uid).update("inventory", myInventory)
+                        }
                     }
-                }
-            finish()
+                finish()
+            }
+
+
         }
 
         val btnAddItemCancel = findViewById<Button>(R.id.btnAddItemCancel)

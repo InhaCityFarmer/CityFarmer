@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -37,6 +38,13 @@ class ModifyInventoryActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val intent = Intent(baseContext,InventoryActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        })
 
         auth = Firebase.auth
         //파이어스토어 DB 접근 객체 얻어오기
@@ -67,6 +75,12 @@ class ModifyInventoryActivity : AppCompatActivity() {
         val btnUpdate = findViewById<Button>(R.id.btnModifyItem)
         btnUpdate.setOnClickListener {
             val textItemNumber = findViewById<TextInputEditText>(R.id.textItemNumberModify)
+            if(textItemNumber.text?.toString().isNullOrEmpty()){
+                Toast.makeText(baseContext,"갯수값이 설정되지 않음",Toast.LENGTH_SHORT).show()
+                val intent = Intent(baseContext,InventoryActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
             val intItemNumber = Integer.parseInt(textItemNumber.text.toString())
 
             val userId = auth.currentUser?.uid ?: return@setOnClickListener
@@ -152,3 +166,4 @@ class ModifyInventoryActivity : AppCompatActivity() {
         }
     }
 }
+
