@@ -5,9 +5,13 @@ import android.content.res.AssetManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.CapstoneDesign.cityfarmer.R
@@ -24,13 +28,13 @@ import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var builderFirstLogin : AlertDialog.Builder
-    private lateinit var arrayUserSelect : ArrayList<String>
-    private lateinit var arrayUserRecommend : ArrayList<String>
-    private lateinit var assetManager : AssetManager
+    private lateinit var builderFirstLogin: AlertDialog.Builder
+    private lateinit var arrayUserSelect: ArrayList<String>
+    private lateinit var arrayUserRecommend: ArrayList<String>
+    private lateinit var assetManager: AssetManager
     private lateinit var inputStream: InputStream
-    private lateinit var reader : CSVReader
-    //private lateinit var auth: FirebaseAuth
+    private lateinit var reader: CSVReader
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -40,54 +44,126 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        arrayUserSelect  = ArrayList<String>()
-        //유저에게 추천해줄 작물의 이름을 담을 배열 초기화
-        arrayUserRecommend = ArrayList<String>()
-        //작물 추천 알고리즘에서 다이얼로그를 띄우기 위한 빌더
+
+        arrayUserSelect = ArrayList()
+        arrayUserRecommend = ArrayList()
         builderFirstLogin = AlertDialog.Builder(this)
-        //cvs 파일 읽기 위한 작업
+
         assetManager = this.assets
         inputStream = assetManager.open("recommend_plant.csv")
         reader = CSVReader(InputStreamReader(inputStream))
-        //파이어베이스 권한 생성 및  받아오기
-        var auth : FirebaseAuth = Firebase.auth
-        //파이어스토어 DB 접근 객체 얻어오기
-        var db = FirebaseFirestore.getInstance()
 
-        Log.d ("내 auth",auth.currentUser?.uid.toString())
+        val auth: FirebaseAuth = Firebase.auth
+        val db = FirebaseFirestore.getInstance()
+
+        val mainImage: ImageView = findViewById(R.id.mainImage)
+        val mainTitle: TextView = findViewById(R.id.mainTitle)
+
+        Log.d("내 auth", auth.currentUser?.uid.toString())
         db.collection("User").document(auth.currentUser!!.uid.toString()).get()
-            .addOnSuccessListener {document ->
-                if( document != null)
-                {
-                    //내 유저 객체 DB에서 가져오기
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    val nickname = document.getString("name")
+                    mainTitle.text = nickname + "'s 농장"
+
                     val myUser = document.toObject<User>(User::class.java)
-                    //처음으로 로그인 한 유저인지 DB에서 값을 가져옴
                     var firstLoginCheck = myUser!!.firstLogin
-                    //만약 처음으로 로그인한 유저라면 firstLoginCheck를 false로 바꾸고 작물 추천 알고리즘을 띄움
-                    if(firstLoginCheck == true)
-                    {
-                        firstLoginCheck=false
-                        //변경된 값으로 DB 수정
-                        db.collection("User").document(auth.currentUser!!.uid.toString()).update("firstLogin",firstLoginCheck)
-                        //작물 추천 시작
+                    if (firstLoginCheck == true) {
+                        firstLoginCheck = false
+                        db.collection("User").document(auth.currentUser!!.uid.toString())
+                            .update("firstLogin", firstLoginCheck)
                         Select1st()
                     }
-
                 }
             }
+        var standard_h: Double? = null
+        var standard_m: Double? = null
+        var standard_t: Double? = null
 
-          db.collection("User").document(auth.currentUser!!.uid.toString()).collection("crop")
+        db.collection("Standard").document("tomato").get()
+            .addOnSuccessListener{document ->
+                if (document != null) {
+                    standard_h = document.getDouble("H")
+                    Log.d("standard_h", "$standard_h")
+                    standard_m = document.getDouble("M")
+                    Log.d("standard_m", "$standard_m")
+                    standard_t = document.getDouble("T")
+                    Log.d("standard_t", "$standard_t")
+                }
+                db.collection("User").document(auth.currentUser!!.uid.toString()).collection("crop")
+                    .document("tomato")
+                    .addSnapshotListener { snapshot, e ->
+                        if (e != null) {
+                            Log.w("", "Listen failed.", e)
+                            return@addSnapshotListener
+                        }
 
-          val satisfied_Check = 0
+                        var checked = 0;
+                        if (snapshot != null && snapshot.exists()) {
+                            val hField = snapshot.get("h") as? List<Any>
+                            if (hField != null && hField.isNotEmpty()) {
+                                val lastItem = hField[hField.size - 1].toString()
 
-        //MapActivity로 이동하는 버튼
+                                val numberPart = lastItem.split("*")[0]
+                                val number = numberPart.toIntOrNull()
+                                if (number != null) {
+                                    Log.d("h", "$number")
+
+                                    if (standard_h != null && number < (standard_h!! + 10) && number > (standard_h!! - 10)){
+                                        checked+=1;
+                                    }
+                                }
+                            }
+                            val mField = snapshot.get("m") as? List<Any>
+                            if (mField != null && mField.isNotEmpty()) {
+                                val lastItem = mField[mField.size - 1].toString()
+
+                                val numberPart = lastItem.split("*")[0]
+                                val number = numberPart.toIntOrNull()
+                                if (number != null) {
+                                    Log.d("m", "$number")
+
+                                    if (standard_m != null && number < (standard_m!! + 10) && number > (standard_m!! - 10)){
+                                        checked+=1;
+                                    }
+                                }
+
+                            }
+                            val tField = snapshot.get("t") as? List<Any>
+                            if (tField != null && tField.isNotEmpty()) {
+                                val lastItem = tField[tField.size - 1].toString()
+
+                                val numberPart = lastItem.split("*")[0]
+                                val number = numberPart.toIntOrNull()
+                                if (number != null) {
+                                    Log.d("t", "$number")
+
+                                    if (standard_t != null && number < (standard_t!! + 10) && number > (standard_t!! - 10)){
+                                        checked+=1;
+                                    }
+                                }
+
+                            }
+                            if (checked <= 1) {
+                                mainImage.setImageResource(R.drawable.sad)
+                            } else if (checked <= 2){
+                                mainImage.setImageResource(R.drawable.average)
+                            }else{
+                                mainImage.setImageResource(R.drawable.smile)
+                            }
+                        }
+                    }
+
+            }
+
+
+
         val btnMap = findViewById<Button>(R.id.btnMap)
         btnMap.setOnClickListener {
             val intent = Intent(this, MapActivity::class.java)
             startActivity(intent)
         }
 
-        //InventoryActivity로 이동하는 버튼
         val btnInventory = findViewById<Button>(R.id.btnInventory)
         btnInventory.setOnClickListener {
             val intent = Intent(this, InventoryActivity::class.java)
@@ -106,45 +182,37 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val btncctv = findViewById<Button>(R.id.btnCCTV)
+        val btncctv = findViewById<ImageButton>(R.id.btnCCTV)
         btncctv.setOnClickListener {
             val intent = Intent(this, WebViewActivity::class.java)
             startActivity(intent)
         }
 
-        //임시 로그아웃 버튼 연결
-        val btnLogout = findViewById<Button>(R.id.btnLogout)
-        //로그아웃 버튼 클릭시 로그아웃
+        val btnLogout = findViewById<ImageButton>(R.id.btnLogout)
         btnLogout.setOnClickListener {
             auth.signOut()
-            //로그아웃 이후 엑티비티 종료
             finish()
         }
 
         val btnChatbot = findViewById<Button>(R.id.btnChatbot)
         btnChatbot.setOnClickListener {
-            val intent = Intent(baseContext,ChatBotActivity::class.java)
+            val intent = Intent(baseContext, ChatBotActivity::class.java)
             startActivity(intent)
-
         }
 
         val btnChatting = findViewById<Button>(R.id.btnChatting)
         btnChatting.setOnClickListener {
-            // 채팅 버튼 클릭시 전의 채팅목록 불러오기
             val intent = Intent(baseContext, PrevChatActivity::class.java)
             val user = auth.uid
-            Log.d("지금 uid",user.toString())
+            Log.d("지금 uid", user.toString())
             intent.putExtra("currentUserUid", user!!.toString())
-
             startActivity(intent)
         }
-
     }
 
-    private fun Select1st(){
-        builderFirstLogin.setTitle("재배 난이도")    // 제목
-        val itemList = arrayOf<String>("상", "중", "하")    // 항목 리스트
-        // 항목 클릭 시 이벤트
+    private fun Select1st() {
+        builderFirstLogin.setTitle("재배 난이도")
+        val itemList = arrayOf("상", "중", "하")
         builderFirstLogin.setItems(itemList) { dialog, which ->
             arrayUserSelect.add(itemList[which])
             Select2nd()
@@ -152,36 +220,30 @@ class MainActivity : AppCompatActivity() {
         builderFirstLogin.show()
     }
 
-    private fun Select2nd(){
-        builderFirstLogin.setTitle("재배 시작 시기")    // 제목
-        val itemList = arrayOf<String>("3~5월", "6~8월", "9~11월")    // 항목 리스트
-        // 항목 클릭 시 이벤트
+    private fun Select2nd() {
+        builderFirstLogin.setTitle("재배 시작 시기")
+        val itemList = arrayOf("3~5월", "6~8월", "9~11월")
         builderFirstLogin.setItems(itemList) { dialog, which ->
             arrayUserSelect.add(itemList[which])
             Select3th()
         }
         builderFirstLogin.show()
     }
-    private fun Select3th(){
-        builderFirstLogin.setTitle("재배 면적 크기")    // 제목
-        val itemList = arrayOf<String>("대", "중", "소")    // 항목 리스트
-        // 항목 클릭 시 이벤트
+
+    private fun Select3th() {
+        builderFirstLogin.setTitle("재배 면적 크기")
+        val itemList = arrayOf("대", "중", "소")
         builderFirstLogin.setItems(itemList) { dialog, which ->
-            if(itemList[which] == "대") arrayUserSelect.add("3")
-            else if(itemList[which] == "중") arrayUserSelect.add("2")
-            else if(itemList[which] == "소") arrayUserSelect.add("1")
-            var nextLine : Array<String>? = arrayOf()
-            while (nextLine.apply {
-                    nextLine = reader.readNext()
-                } != null)
-            {
-                //위에서 고른 3가지 조건을 모두 부합하는지 cvs의 값과 비교
-                if(nextLine?.get(1)?.toString() == arrayUserSelect[0]
-                    && nextLine?.get(2)?.toString() == arrayUserSelect[1]
-                    && Integer.parseInt(nextLine!!.get(3)) <= Integer.parseInt( arrayUserSelect[2]))
-                {
-                    //모두 부합하는 식물의 이름만 arrayUserRecommend에 저장
-                    arrayUserRecommend.add(nextLine?.get(0)!!.toString())
+            if (itemList[which] == "대") arrayUserSelect.add("3")
+            else if (itemList[which] == "중") arrayUserSelect.add("2")
+            else if (itemList[which] == "소") arrayUserSelect.add("1")
+            var nextLine: Array<String>?
+            while (reader.readNext().also { nextLine = it } != null) {
+                if (nextLine?.get(1) == arrayUserSelect[0]
+                    && nextLine?.get(2) == arrayUserSelect[1]
+                    && Integer.parseInt(nextLine!![3]) <= Integer.parseInt(arrayUserSelect[2])
+                ) {
+                    arrayUserRecommend.add(nextLine!![0])
                 }
             }
             ShowRecommendResult()
@@ -190,18 +252,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun ShowRecommendResult() {
-
-        builderFirstLogin.setTitle("재배 추천 작물")    // 제목
-        val itemList : Array<String>
-        if(arrayUserRecommend.isEmpty()) {
-            itemList = arrayOf("추천 작물이 없습니다.")
+        builderFirstLogin.setTitle("재배 추천 작물")
+        val itemList: Array<String> = if (arrayUserRecommend.isEmpty()) {
+            arrayOf("추천 작물이 없습니다.")
+        } else {
+            arrayUserRecommend.toTypedArray()
         }
-        else {
-            itemList = arrayUserRecommend.toTypedArray()  // 항목 리스트
-        }
-        // 항목 클릭 시 이벤트
-        builderFirstLogin.setItems(itemList) { dialog, which ->
-        }
+        builderFirstLogin.setItems(itemList) { dialog, which -> }
         builderFirstLogin.show()
     }
 }
