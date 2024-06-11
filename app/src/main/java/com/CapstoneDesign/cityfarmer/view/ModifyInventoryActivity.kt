@@ -66,7 +66,7 @@ class ModifyInventoryActivity : AppCompatActivity() {
 
         val btnCancle = findViewById<Button>(R.id.btnAddItemCancelInModify)
         btnCancle.setOnClickListener {
-            Toast.makeText(this,"$itemName 수정 has been cancled",Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this,"$itemName 수정 has been cancled",Toast.LENGTH_SHORT).show()
             val intent = Intent(baseContext,InventoryActivity::class.java)
             startActivity(intent)
             finish()
@@ -76,7 +76,7 @@ class ModifyInventoryActivity : AppCompatActivity() {
         btnUpdate.setOnClickListener {
             val textItemNumber = findViewById<TextInputEditText>(R.id.textItemNumberModify)
             if(textItemNumber.text?.toString().isNullOrEmpty()){
-                Toast.makeText(baseContext,"갯수값이 설정되지 않음",Toast.LENGTH_SHORT).show()
+                Toast.makeText(baseContext,"개수가 설정되지 않음",Toast.LENGTH_SHORT).show()
                 val intent = Intent(baseContext,InventoryActivity::class.java)
                 startActivity(intent)
                 finish()

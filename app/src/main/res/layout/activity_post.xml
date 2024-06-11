@@ -9,6 +9,7 @@
     tools:context=".view.PostActivity">
 
     <EditText
+        android:textColor="@color/black"
         android:id="@+id/editTextPostTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,27 +23,29 @@
     <EditText
         android:id="@+id/editTextPostBody"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:hint="내용을 입력해주세요."
-        app:layout_constraintTop_toBottomOf="@id/editTextPostTitle"
-        app:layout_constraintBottom_toTopOf="@id/btnPost"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="550dp"
         android:gravity="start|top"
+        android:hint="내용을 입력해주세요."
         android:inputType="textMultiLine"
-        android:singleLine="false" />
+        android:singleLine="false"
+        app:layout_constraintBottom_toTopOf="@id/btnPost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextPostTitle" />
 
     <Button
+        android:background="@drawable/rounded_corner"
         android:id="@+id/btnPost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
         android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="20dp"
         android:text="글쓰기"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@id/editTextPostBody"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextPostBody" />
 </androidx.constraintlayout.widget.ConstraintLayout>

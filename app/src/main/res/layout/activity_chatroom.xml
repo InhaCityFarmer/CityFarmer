@@ -8,13 +8,14 @@
     android:layout_height="match_parent"
     tools:context=".view.ChatroomActivity"
     android:fitsSystemWindows="true"
+
     >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatting_log"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#93A1CA"
+        android:background="@color/colorGreenToolbar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/message_layout"
         app:layout_constraintStart_toStartOf="parent"

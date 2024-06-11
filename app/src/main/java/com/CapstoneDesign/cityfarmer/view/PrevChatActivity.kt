@@ -103,7 +103,7 @@ class PrevChatActivity : AppCompatActivity() {
                                     rv.layoutManager = LinearLayoutManager(this)
                                     rv_adapter.itemclick = object : chatAdapter.Itemclick {
                                         override fun onclick(view: View, position: Int) {
-                                            Toast.makeText(baseContext, "Clicked position: $position", Toast.LENGTH_LONG).show()
+                                            //Toast.makeText(baseContext, "Clicked position: $position", Toast.LENGTH_LONG).show()
                                             val intent = Intent(baseContext, ChatroomActivity::class.java)
                                             intent.putExtra("currentUserUid", currnetUserUid)
                                             intent.putExtra("opponentUserUid", userList[position])

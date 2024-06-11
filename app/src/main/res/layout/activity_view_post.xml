@@ -9,6 +9,7 @@
     tools:context=".view.ViewPostActivity">
 
     <EditText
+        android:textColor="@color/black"
         android:id="@+id/editTextViewTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,9 +21,10 @@
         />
 
     <EditText
+        android:textColor="@color/black"
         android:id="@+id/editTextViewBody"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="500dp"
         android:hint="내용"
         app:layout_constraintTop_toBottomOf="@id/editTextViewTitle"
         app:layout_constraintBottom_toTopOf="@id/btnGoChat"
@@ -33,16 +35,18 @@
         android:singleLine="false" />
 
     <Button
+        android:layout_marginBottom="10dp"
         android:id="@+id/btnGoChat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
         android:layout_alignParentBottom="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/rounded_corner"
         android:text="채팅하기"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@id/editTextViewBody"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextViewBody" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

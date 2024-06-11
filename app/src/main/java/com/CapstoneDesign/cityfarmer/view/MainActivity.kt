@@ -24,6 +24,7 @@ import com.google.firebase.ktx.Firebase
 import java.io.InputStream
 import java.io.InputStreamReader
 import com.opencsv.CSVReader
+import okhttp3.internal.notify
 import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
@@ -98,14 +99,16 @@ class MainActivity : AppCompatActivity() {
                             return@addSnapshotListener
                         }
 
+
                         var checked = 0;
                         if (snapshot != null && snapshot.exists()) {
                             val hField = snapshot.get("h") as? List<Any>
                             if (hField != null && hField.isNotEmpty()) {
                                 val lastItem = hField[hField.size - 1].toString()
-
                                 val numberPart = lastItem.split("*")[0]
-                                val number = numberPart.toIntOrNull()
+                                //val number = numberPart.toIntOrNull()
+                                val number = numberPart.toDouble()
+                                println(number)
                                 if (number != null) {
                                     Log.d("h", "$number")
 
@@ -117,9 +120,9 @@ class MainActivity : AppCompatActivity() {
                             val mField = snapshot.get("m") as? List<Any>
                             if (mField != null && mField.isNotEmpty()) {
                                 val lastItem = mField[mField.size - 1].toString()
-
                                 val numberPart = lastItem.split("*")[0]
-                                val number = numberPart.toIntOrNull()
+                                //val number = numberPart.toIntOrNull()
+                                val number = numberPart.toDouble()
                                 if (number != null) {
                                     Log.d("m", "$number")
 
@@ -132,9 +135,9 @@ class MainActivity : AppCompatActivity() {
                             val tField = snapshot.get("t") as? List<Any>
                             if (tField != null && tField.isNotEmpty()) {
                                 val lastItem = tField[tField.size - 1].toString()
-
                                 val numberPart = lastItem.split("*")[0]
-                                val number = numberPart.toIntOrNull()
+                                //val number = numberPart.toIntOrNull()
+                                val number = numberPart.toDouble()
                                 if (number != null) {
                                     Log.d("t", "$number")
 

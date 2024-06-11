@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="장소 입력"
+            android:hint="게시글 제목으로 검색"
             android:inputType="textPersonName"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,6 +28,8 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:layout_marginRight="10dp"
+            android:background="@color/colorGreenToolbar"
             android:id="@+id/btnSearch"
             style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="wrap_content"
@@ -38,6 +40,8 @@
 
 
         <Button
+            android:layout_marginLeft="10dp"
+            android:background="@color/colorGreenToolbar"
             android:id="@+id/btnPost"
             style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="wrap_content"
