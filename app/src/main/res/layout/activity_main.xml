@@ -58,8 +58,8 @@
 
     <ImageView
         android:id="@+id/mainImage"
-        android:layout_width="361dp"
-        android:layout_height="370dp"
+        android:layout_width="320dp"
+        android:layout_height="340dp"
         android:layout_marginTop="108dp"
         android:background="@drawable/button_background"
         android:src="@drawable/smile"
@@ -71,7 +71,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/buttonSection"
-        android:layout_width="391dp"
+        android:layout_width="340dp"
         android:layout_height="204dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
@@ -154,7 +154,7 @@
             android:layout_marginTop="40dp"
             android:background="@drawable/button_background"
             android:fontFamily="@font/one_mobile_pop"
-            android:text="지도"
+            android:text="게시판"
             android:textSize="16dp"
             android:textColor="#000000"
             app:layout_constraintDimensionRatio="1.3:1"
