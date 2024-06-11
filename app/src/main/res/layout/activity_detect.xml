@@ -27,7 +27,7 @@
         android:layout_height="125dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="잠시만 기다려주세요"
+        android:text="사진을 넣어주세요"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:gravity="center"
