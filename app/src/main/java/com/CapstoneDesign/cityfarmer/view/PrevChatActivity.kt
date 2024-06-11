@@ -107,6 +107,7 @@ class PrevChatActivity : AppCompatActivity() {
                                             val intent = Intent(baseContext, ChatroomActivity::class.java)
                                             intent.putExtra("currentUserUid", currnetUserUid)
                                             intent.putExtra("opponentUserUid", userList[position])
+                                            intent.putExtra("opponentUserName", userNameList[position])
                                             intent.putExtra("currentUserName",currentUserName)
                                             startActivity(intent)
                                         }

@@ -7,20 +7,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.ChatroomActivity"
-    android:fitsSystemWindows="true"
+    android:fitsSystemWindows="true">
 
-    >
+    <TextView
+        android:id="@+id/TextviewChatUserName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="상대 이름"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatting_log"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="620dp"
         android:background="@color/colorGreenToolbar"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/message_layout"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:stackFromEnd="true"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextviewChatUserName"
+        app:stackFromEnd="true" />
 
     <LinearLayout
         android:id="@+id/message_layout"

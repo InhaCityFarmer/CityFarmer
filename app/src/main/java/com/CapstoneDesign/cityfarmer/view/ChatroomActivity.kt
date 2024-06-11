@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,16 +13,20 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.CapstoneDesign.cityfarmer.R
+import com.CapstoneDesign.cityfarmer.adapter.MessageRecyclerViewAdapter
 import com.CapstoneDesign.cityfarmer.adapter.chatAdapter
+import com.CapstoneDesign.cityfarmer.`object`.Message
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.firestore
+import okhttp3.internal.notify
 
 class ChatroomActivity : AppCompatActivity() {
     private lateinit var opponentUserUid : String
     private lateinit var currentUserUid : String
     private lateinit var currentUserName : String
     private lateinit var opponentUserName : String
+    private lateinit var rv_adapter : MessageRecyclerViewAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -32,18 +37,15 @@ class ChatroomActivity : AppCompatActivity() {
             insets
         }
 
-        //currentUserName = "황윤준"
-        //opponentUserUid = "황윤준2"
         currentUserName = intent.getStringExtra("currentUserName").toString()
         opponentUserUid = intent.getStringExtra("opponentUserUid").toString()
+        opponentUserName = intent.getStringExtra("opponentUserName").toString()
         currentUserUid = intent.getStringExtra("currentUserUid").toString()
-      //  Log.d("내 Uid : ",currentUserUid)
-      //  Log.d("상대 uid : ",opponentUserUid)
-
-
 
         val chatList = mutableListOf<String>()
-
+        var messageList: MutableList<Message> = mutableListOf()
+        val chatname = findViewById<TextView>(R.id.TextviewChatUserName)
+        chatname.text = opponentUserName
         val db = Firebase.firestore
         val userCollection = db.collection("User")
 
@@ -89,7 +91,8 @@ class ChatroomActivity : AppCompatActivity() {
                                                         // 성공적으로 메시지가 추가된 경우
                                                         Log.d("메시지 송신 완료", "Message sent successfully: $messageText")
                                                         chatList.add(newMessage)
-
+                                                        messageList.add(Message(messageText,Message.SENT_BY_ME))
+                                                        rv_adapter.notifyDataSetChanged()
                                                         // EditText를 초기화합니다.
                                                         findViewById<EditText>(R.id.sendingMsg).setText("")
                                                     }
@@ -102,14 +105,31 @@ class ChatroomActivity : AppCompatActivity() {
                                                 Log.d("sendMessage", "Message is empty")
                                                 Toast.makeText(this, "문자를 입력하세요!!", Toast.LENGTH_SHORT).show()
                                             }
+
+
                                         }
 
+                                        for (chat in chatList){
+                                            val tempchat = chat.split(" : ")
+                                            val m = Message()
+                                            if(tempchat[0] == currentUserName)
+                                            {
+                                                m.sentBy = Message.SENT_BY_ME
+                                            }
+                                            else m.sentBy = Message.SENT_BY_BOT
+                                            m.message = tempchat[1]
+                                            messageList.add(m)
+                                        }
+
+
                                         val rv = findViewById<RecyclerView>(R.id.chatting_log)
-                                        val rv_adapter = chatAdapter(chatList)
+                                        //val rv_adapter = chatAdapter(chatList)
+                                        rv_adapter = MessageRecyclerViewAdapter(messageList)
 
 
                                         rv.adapter = rv_adapter
                                         rv.layoutManager = LinearLayoutManager(this)
+
 
 
                                         val chatroomRef = db.collection("Chat").document(value!!)
@@ -258,12 +278,7 @@ class ChatroomActivity : AppCompatActivity() {
                                 Log.w("TAG", "Error getting document", e)
                             }
 
-
-
-
-
                         val value = newDocumentRef.id
-
                         //Log.d("prev_chatroom이 존재하네요", "Value: $value")
                         // 여기서 그럼 value가 cid가 됨, 이 cid를 기반으로 chatroom을 감
                         // 일단 지금 코드에서는 chatroom_1이 나와야 함
@@ -294,7 +309,8 @@ class ChatroomActivity : AppCompatActivity() {
                                                         // 성공적으로 메시지가 추가된 경우
                                                         Log.d("메시지 송신 완료", "Message sent successfully: $messageText")
                                                         chatList.add(newMessage)
-
+                                                        messageList.add(Message(messageText,Message.SENT_BY_ME))
+                                                        rv_adapter.notifyDataSetChanged()
                                                         // EditText를 초기화합니다.
                                                         findViewById<EditText>(R.id.sendingMsg).setText("")
                                                     }
@@ -309,8 +325,21 @@ class ChatroomActivity : AppCompatActivity() {
                                             }
                                         }
 
+
+                                        for (chat in chatList){
+                                            val tempchat = chat.split(" : ")
+                                            val m = Message()
+                                            if(tempchat[0] == currentUserName)
+                                            {
+                                                m.sentBy = Message.SENT_BY_ME
+                                            }
+                                            else m.sentBy = Message.SENT_BY_BOT
+                                            m.message = tempchat[1]
+                                            messageList.add(m)
+                                        }
+
                                         val rv = findViewById<RecyclerView>(R.id.chatting_log)
-                                        val rv_adapter = chatAdapter(chatList)
+                                        rv_adapter = MessageRecyclerViewAdapter(messageList)
 
 
                                         rv.adapter = rv_adapter
