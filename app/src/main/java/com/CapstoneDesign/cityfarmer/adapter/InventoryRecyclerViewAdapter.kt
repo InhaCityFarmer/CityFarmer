@@ -37,7 +37,7 @@ class InventoryRecyclerViewAdapter (private val item : ArrayList<Item>)
         val itemDate = item[position]
         // 기존에 임시로 들어가 있던 값 실제 값으로 변경
         holder.textItemName.text = itemDate.name
-        holder.textItemNumber.text = itemDate.number.toString()
+        holder.textItemNumber.text = itemDate.number.toString()+" 개"
 
         if(itemclick != null) {
             holder.itemView.setOnClickListener { v ->
