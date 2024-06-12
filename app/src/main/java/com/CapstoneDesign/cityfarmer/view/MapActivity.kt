@@ -188,6 +188,10 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, Overlay.OnClickList
                             }
                             setRecyclerView(overlay.captionText)
                         }
+                //바텀시트 펼치기 위해 bottomBehavior 할당
+                val bottomBehavior = BottomSheetBehavior.from(binding.bottomSheet.root)
+                //바텀시트 펼침
+                bottomBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
             }
             return false
         }
