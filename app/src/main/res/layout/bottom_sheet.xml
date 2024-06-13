@@ -44,7 +44,7 @@
         android:layout_height="1dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:background="#f5f0f0"
+        android:background="#F7F7F7"
         android:id="@+id/recyclerViewMap"
         android:layout_width="0dp"
         android:layout_height="0dp"

@@ -13,35 +13,44 @@
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/detect_image_corner"
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/resultTextView"
-        app:layout_constraintHeight_percent="0.6" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/resultTextView"
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="125dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
-        android:text="사진을 넣어주세요"
+        android:text="결과가 출력됩니다"
+        android:background="@drawable/detect_image_corner"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:gravity="center"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/btnTakePhoto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView" />
+        app:layout_constraintTop_toBottomOf="@id/imageView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.5"
+        />
+
 
     <Button
         android:id="@+id/btnTakePhoto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="36dp"
         android:background="@drawable/rounded_corner"
@@ -49,19 +58,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnUploadPhoto"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.5" />
+        app:layout_constraintWidth_percent="0.45" />
 
     <Button
         android:id="@+id/btnUploadPhoto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginRight="15dp"
         android:layout_marginBottom="36dp"
         android:background="@drawable/rounded_corner"
         android:text="앨범에서 가져오기"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnTakePhoto"
-        app:layout_constraintWidth_percent="0.5" />
+        app:layout_constraintWidth_percent="0.45" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

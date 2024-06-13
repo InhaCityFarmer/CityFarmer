@@ -9,7 +9,7 @@
         android:id="@+id/register"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#8BBC87"
+        android:background="@color/ground"
         tools:context=".view.RegisterActivity">
 
     <LinearLayout
@@ -17,17 +17,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="37dp"
-        tools:layout_editor_absoluteY="57dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-1dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="70dp"
             android:text="회원가입"
             android:textSize="35sp"
             android:textStyle="bold"
-            android:layout_gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -54,12 +54,12 @@
                 android:id="@+id/registerID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginHorizontal="40dp"
                 android:layout_marginTop="5dp"
-                android:layout_gravity="center"
                 android:hint="이메일 형식으로 입력하세요"
-                android:windowSoftInputMode="adjustResize"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:windowSoftInputMode="adjustResize" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,12 +87,12 @@
                 android:id="@+id/registerPW"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginHorizontal="40dp"
                 android:layout_marginTop="10dp"
-                android:layout_gravity="center"
                 android:hint="6자리 이상 입력하세요"
-                android:windowSoftInputMode="adjustResize"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:windowSoftInputMode="adjustResize" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,8 +120,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="40dp"
                 android:layout_marginTop="5dp"
-                android:windowSoftInputMode="adjustResize"
-                android:inputType="text" />
+                android:inputType="text"
+                android:windowSoftInputMode="adjustResize" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -136,6 +136,7 @@
             android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/main_textInputLayout_farmName"
             android:layout_width="match_parent"
@@ -148,8 +149,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="40dp"
                 android:layout_marginTop="10dp"
-                android:windowSoftInputMode="adjustResize"
-                android:inputType="text" />
+                android:inputType="text"
+                android:windowSoftInputMode="adjustResize" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -178,8 +179,8 @@
                 android:layout_marginHorizontal="40dp"
                 android:layout_marginTop="10dp"
                 android:hint="전체 주소를 정확히 입력하세요"
-                android:windowSoftInputMode="adjustResize"
-                android:inputType="text" />
+                android:inputType="text"
+                android:windowSoftInputMode="adjustResize" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -194,6 +195,7 @@
             android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/main_textInputLayout_farmNumber"
             android:layout_width="match_parent"
@@ -206,8 +208,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="40dp"
                 android:layout_marginTop="10dp"
-                android:windowSoftInputMode="adjustResize"
-                android:inputType="text" />
+                android:inputType="text"
+                android:windowSoftInputMode="adjustResize" />
 
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
