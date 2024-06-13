@@ -20,7 +20,6 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.firestore
 import okhttp3.internal.notify
-
 class ChatroomActivity : AppCompatActivity() {
     private lateinit var opponentUserUid : String
     private lateinit var currentUserUid : String

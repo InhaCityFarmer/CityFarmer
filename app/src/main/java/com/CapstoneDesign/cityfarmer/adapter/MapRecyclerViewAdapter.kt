@@ -49,17 +49,12 @@ class MapRecyclerViewAdapter (private val post : ArrayList<Post>)
     interface OnItemClickListener {
         fun onClick(v: View, position: Int)
     }
-
     fun setItemClickListener(onItemClickListener: OnItemClickListener){
         this.itemClickListener = onItemClickListener
     }
-
-
 
     override fun getItemCount(): Int {
         // 리사이클러뷰 아이템 개수는 할 일 리스트 크기
         return post.size
     }
-
-
 }

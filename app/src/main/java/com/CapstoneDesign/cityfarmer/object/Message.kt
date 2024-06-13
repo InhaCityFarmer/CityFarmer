@@ -8,9 +8,7 @@ class Message {
         this.message = message
         this.sentBy = sentBy
     }
-
     constructor()
-
     companion object {
         var SENT_BY_ME = "me"
         var SENT_BY_BOT = "bot"

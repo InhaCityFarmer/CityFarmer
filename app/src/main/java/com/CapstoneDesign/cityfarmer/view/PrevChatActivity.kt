@@ -60,8 +60,6 @@ class PrevChatActivity : AppCompatActivity() {
         ////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////
 
-        ////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////
         // 이제부터는 User collection에서 uid를 통해 document에 접근, 그 아래 prevchat에서
         // userlist 받아오고, 그 userlist를 바탕으로 userNamelist에 넣어서 recyclerview에 보여주는 파트
         documentRef
@@ -74,7 +72,6 @@ class PrevChatActivity : AppCompatActivity() {
                             // 맵의 각 키값을 userList에 추가
                             // 여기서 key값이 상대방의 uid ( prev_chat 부분이 uid-chatroomid의 pair로 되어있음
                             userList.add(key)
-                            ////////////////////////////////////////////////////////////////
                             ////////////////////////////////////////////////////////////////
                             // 여기는 key를 가지고 Uesr collection에서 key(uid)에 매칭되는 name을 nameList에 추가하는 과정
 
@@ -93,7 +90,6 @@ class PrevChatActivity : AppCompatActivity() {
                                         }
                                     }
 
-                                    ////////////////////////////////////////////////////////////////
                                     ////////////////////////////////////////////////////////////////
 
                                     val rv = findViewById<RecyclerView>(R.id.rvUsers)

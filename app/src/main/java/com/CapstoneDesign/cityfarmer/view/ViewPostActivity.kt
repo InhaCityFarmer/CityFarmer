@@ -50,11 +50,6 @@ class ViewPostActivity : AppCompatActivity() {
         editTextViewBody.isEnabled = false
         //채팅하기 버튼 누르면 채팅으로 넘겨줌
         btnGoChat.setOnClickListener {
-
-
-
-
-
             val intent = Intent(baseContext, ChatroomActivity::class.java)
             intent.putExtra("currentUserName", currentUserName )
             intent.putExtra("currentUserUid", auth.currentUser!!.uid.toString())

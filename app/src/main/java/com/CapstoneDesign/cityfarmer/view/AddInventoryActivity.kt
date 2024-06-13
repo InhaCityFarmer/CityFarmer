@@ -65,10 +65,7 @@ class AddInventoryActivity : AppCompatActivity() {
                     }
                 finish()
             }
-
-
         }
-
         val btnAddItemCancel = findViewById<Button>(R.id.btnAddItemCancel)
         btnAddItemCancel.setOnClickListener {
             finish()

@@ -34,18 +34,5 @@ class WebViewActivity : AppCompatActivity() {
             domStorageEnabled= true // DOM(html 인식) 저장소 허용여부
         }
         myWebView.loadUrl(myUrl)
-
-
     }
-
-//    override fun onBackPressed() {
-//        val my_wb = findViewById<WebView>(R.id.myWebView)
-//        if(my_wb.canGoBack()){
-//            my_wb.goBack()
-//        }
-//        else{
-//            super.onBackPressed()
-//        }
-//
-//    }
 }
