@@ -12,9 +12,9 @@
 
     <ImageView
         android:id="@+id/ItemImage"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/cityfarmer_logo"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/dot"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textItemName"
         app:layout_constraintStart_toStartOf="parent"
