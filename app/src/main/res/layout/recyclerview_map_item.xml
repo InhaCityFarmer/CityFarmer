@@ -7,7 +7,7 @@
     android:layout_height="80dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#E6E2CF"
+    android:background="#f5f0f0"
     android:paddingTop="10dp">
 
 

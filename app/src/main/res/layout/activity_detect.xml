@@ -39,12 +39,12 @@
         app:layout_constraintTop_toBottomOf="@id/imageView" />
 
     <Button
-        android:layout_marginRight="10dp"
-        android:background="@drawable/rounded_corner"
         android:id="@+id/btnTakePhoto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/rounded_corner"
         android:text="사진 촬영"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnUploadPhoto"
@@ -52,16 +52,16 @@
         app:layout_constraintWidth_percent="0.5" />
 
     <Button
-        android:layout_marginLeft="10dp"
-        android:background="@drawable/rounded_corner"
         android:id="@+id/btnUploadPhoto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/rounded_corner"
         android:text="앨범에서 가져오기"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnTakePhoto"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnTakePhoto"
         app:layout_constraintWidth_percent="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
