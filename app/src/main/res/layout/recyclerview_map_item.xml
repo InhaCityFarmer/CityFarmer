@@ -7,14 +7,15 @@
     android:layout_height="80dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#8BBC87"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp">
+    android:background="#E6E2CF"
+    android:paddingTop="10dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginRight="7dp"
+        android:layout_marginLeft="7dp"
         android:background="@drawable/rounded_corner"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="제목"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -44,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="글쓴이"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="글쓴이UID"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -24,7 +24,7 @@
         android:id="@+id/chatting_log"
         android:layout_width="match_parent"
         android:layout_height="620dp"
-        android:background="@color/colorGreenToolbar"
+        android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@id/message_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
