@@ -91,7 +91,6 @@ class ChatroomActivity : AppCompatActivity() {
                                                         Log.d("메시지 송신 완료", "Message sent successfully: $messageText")
                                                         chatList.add(newMessage)
                                                         messageList.add(Message(messageText,Message.SENT_BY_ME))
-                                                        rv_adapter.notifyDataSetChanged()
                                                         // EditText를 초기화합니다.
                                                         findViewById<EditText>(R.id.sendingMsg).setText("")
                                                     }
@@ -99,6 +98,18 @@ class ChatroomActivity : AppCompatActivity() {
                                                         // 메시지 추가 중 오류가 발생한 경우
                                                         Log.w("메시지 송신 오류", "Error sending message", e)
                                                     }
+
+                                                for (chat in chatList){
+                                                    val tempchat = chat.split(" : ")
+                                                    val m = Message()
+                                                    if(tempchat[0] == currentUserName)
+                                                    {
+                                                        m.sentBy = Message.SENT_BY_ME
+                                                    }
+                                                    else m.sentBy = Message.SENT_BY_BOT
+                                                    m.message = tempchat[1]
+                                                    messageList.add(m)
+                                                }
                                             } else {
                                                 // 메시지가 비어있는 경우
                                                 Log.d("sendMessage", "Message is empty")
@@ -108,27 +119,13 @@ class ChatroomActivity : AppCompatActivity() {
 
                                         }
 
-                                        for (chat in chatList){
-                                            val tempchat = chat.split(" : ")
-                                            val m = Message()
-                                            if(tempchat[0] == currentUserName)
-                                            {
-                                                m.sentBy = Message.SENT_BY_ME
-                                            }
-                                            else m.sentBy = Message.SENT_BY_BOT
-                                            m.message = tempchat[1]
-                                            messageList.add(m)
-                                        }
-
 
                                         val rv = findViewById<RecyclerView>(R.id.chatting_log)
                                         //val rv_adapter = chatAdapter(chatList)
                                         rv_adapter = MessageRecyclerViewAdapter(messageList)
 
-
                                         rv.adapter = rv_adapter
                                         rv.layoutManager = LinearLayoutManager(this)
-
 
 
                                         val chatroomRef = db.collection("Chat").document(value!!)
