@@ -17,6 +17,7 @@ class ViewPostActivity : AppCompatActivity() {
     private lateinit var db : FirebaseFirestore
     private lateinit var currentUserName : String
     private lateinit var writerUid : String
+    private lateinit var writer : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,7 @@ class ViewPostActivity : AppCompatActivity() {
             }
         }
         writerUid = intent.getStringExtra("writerUID").toString()
+        writer = intent.getStringExtra("writer").toString()
 
 
         val editTextViewTitle = findViewById<EditText>(R.id.editTextViewTitle)
@@ -53,7 +55,7 @@ class ViewPostActivity : AppCompatActivity() {
             val intent = Intent(baseContext, ChatroomActivity::class.java)
             intent.putExtra("currentUserName", currentUserName )
             intent.putExtra("currentUserUid", auth.currentUser!!.uid.toString())
-            intent.putExtra("opponentUserName", intent.getStringExtra("writer"))
+            intent.putExtra("opponentUserName", writer)
             intent.putExtra("opponentUserUid", writerUid)
             startActivity(intent)
         }
