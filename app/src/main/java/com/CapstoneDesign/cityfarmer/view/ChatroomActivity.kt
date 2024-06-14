@@ -142,9 +142,19 @@ class ChatroomActivity : AppCompatActivity() {
                                                 val chatlog = snapshot.get("message") as? List<String>
                                                 if (chatlog != null) {
                                                     chatList.clear() // 이전 데이터를 지우고 새로운 데이터로 채웁니다.
+                                                    messageList.clear()
                                                     for (message in chatlog) {
                                                         Log.d("Chatlog", message)
                                                         chatList.add(message.toString())
+                                                        val tempchat = message.toString().split(" : ")
+                                                        val m = Message()
+                                                        if(tempchat[0] == currentUserName)
+                                                        {
+                                                            m.sentBy = Message.SENT_BY_ME
+                                                        }
+                                                        else m.sentBy = Message.SENT_BY_BOT
+                                                        m.message = tempchat[1]
+                                                        messageList.add(m)
                                                     }
                                                     // RecyclerView에 데이터가 변경되었음을 알립니다.
                                                     rv_adapter.notifyDataSetChanged()
@@ -357,9 +367,19 @@ class ChatroomActivity : AppCompatActivity() {
                                                 val chatlog = snapshot.get("message") as? List<String>
                                                 if (chatlog != null) {
                                                     chatList.clear() // 이전 데이터를 지우고 새로운 데이터로 채웁니다.
+                                                    messageList.clear()
                                                     for (message in chatlog) {
                                                         Log.d("Chatlog", message)
                                                         chatList.add(message.toString())
+                                                        val tempchat = message.toString().split(" : ")
+                                                        val m = Message()
+                                                        if(tempchat[0] == currentUserName)
+                                                        {
+                                                            m.sentBy = Message.SENT_BY_ME
+                                                        }
+                                                        else m.sentBy = Message.SENT_BY_BOT
+                                                        m.message = tempchat[1]
+                                                        messageList.add(m)
                                                     }
                                                     // RecyclerView에 데이터가 변경되었음을 알립니다.
                                                     rv_adapter.notifyDataSetChanged()
