@@ -6,7 +6,7 @@
 
 ## 데모영상
 
-자동급수 : https://youtu.be/yhn_nspPzAA ![image](https://github.com/InhaCityFarmer/CityFarmer/assets/93529538/02d97160-4547-4362-9a54-c9a27f6e50ae)
+자동급수 : https://youtu.be/yhn_nspPzAA 
 
-앱 기능 테스트 : https://youtu.be/xMUxYevIk34 ![image](https://github.com/InhaCityFarmer/CityFarmer/assets/93529538/7b981b7c-62d6-4858-a98d-1099abfee53a)
+앱 기능 테스트 : https://youtu.be/xMUxYevIk34
 
